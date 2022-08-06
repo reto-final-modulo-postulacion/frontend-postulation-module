@@ -10,6 +10,10 @@ const routes: Routes = [
     canActivate : [AngularFireAuth]
   },
   {
+    path: 'list',
+    loadChildren: () => import('./trainingleagues/trainingleagues.module').then(m => m.TrainingleaguesModule),
+  },
+  {
     path: '**',
     redirectTo: 'auth'
   }

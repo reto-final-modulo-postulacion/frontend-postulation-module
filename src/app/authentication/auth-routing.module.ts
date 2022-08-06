@@ -8,18 +8,21 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'login', component: LoginComponent,  },
-      { path: 'sinup', component: SinupComponent, },
-      { path: '**', redirectTo:'login' },
+      { path: 'login', component: LoginComponent },
+      { path: 'sinup', component: SinupComponent },
+      { path: '**', redirectTo: 'login' },
     ]
-  }
+  },
 ]
 
-
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoginComponent,
+    SinupComponent
+  ],
   imports: [
     RouterModule.forChild(routes)
   ]
 })
+
 export class AuthRoutingModule { }
