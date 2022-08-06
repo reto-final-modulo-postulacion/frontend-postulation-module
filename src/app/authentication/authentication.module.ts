@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AngularFireModule } from '@angular/fire/compat';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SinupComponent } from './sinup/sinup.component';
+import { environment } from '../../environments/environment';
 
 
 
@@ -14,10 +16,10 @@ import { SinupComponent } from './sinup/sinup.component';
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
-  exports: [
-    LoginComponent
-  ]
+  exports: [],
+  providers: [AuthenticationModule]
 })
 export class AuthenticationModule { }

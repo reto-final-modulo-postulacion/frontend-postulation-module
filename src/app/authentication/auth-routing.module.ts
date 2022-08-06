@@ -8,8 +8,8 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'sinup', component: SinupComponent },
+      { path: 'login', component: LoginComponent,  },
+      { path: 'sinup', component: SinupComponent, },
       { path: '**', redirectTo:'login' },
     ]
   }
