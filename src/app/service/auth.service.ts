@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import * as auth from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from '../interfaces/Interface.User';
+import { User } from '../authentication/interfaces/Interface.User';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
+    public router: Router
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -27,42 +29,56 @@ export class AuthService {
     });
   }
 
-  // Sign in with email/password
-  SignIn(email: string, password: string) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        // this.ngZone.run(() => {
-        //   this.router.navigate(['dashboard']);
-        // });
-        this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
-  }
-
-
   SignUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        // this.SendVerificationMail();
-        this.SetUserData(result.user);
+        console.log(result.user);
+        this.router.navigate(['list/home ']);
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
 
-  // Sign out
+  SignIn(email: string, password: string) {
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log('hola');
+        this.SetUserData(result.user);
+        this.router.navigate(['list']);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      // this.router.navigate(['sign-in']);
+      // this.router.navigate(['login']);
     });
+  }
+
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+      if (res) {
+        this.router.navigate(['list']);
+      }
+    });
+  }
+
+  AuthLogin(provider: any) {
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.SetUserData(result.user);
+        this.router.navigate(['list']);
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
   }
 
   SetUserData(user: any) {

@@ -3,17 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AngularFireModule } from '@angular/fire/compat';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { LoginComponent } from './login/login.component';
-import { SinupComponent } from './sinup/sinup.component';
 import { environment } from '../../environments/environment';
 
-
-
 @NgModule({
-  declarations: [
-    LoginComponent,
-    SinupComponent,
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -22,4 +15,5 @@ import { environment } from '../../environments/environment';
   exports: [],
   providers: [AuthenticationModule]
 })
+
 export class AuthenticationModule { }
