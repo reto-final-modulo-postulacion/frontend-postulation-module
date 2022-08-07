@@ -12,11 +12,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    ListTrainigLeaguesComponent
-  ],
   imports: [
     RouterModule.forChild(routes)
-  ]
+  ],
+  exports: [RouterModule]
 })
 export class TrainingleaguesRoutingModule {}
