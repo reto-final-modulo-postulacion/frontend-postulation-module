@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "src/app/service/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -7,20 +6,7 @@ import { AuthService } from "src/app/service/auth.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-	showMenu: any = true;
-	showOptionsUser: any = false;
-
-	constructor(public authService: AuthService) {}
+	constructor() {}
 
 	ngOnInit(): void {}
-
-	openMenu() {
-		(!this.showMenu) ? this.showMenu = true : this.showMenu = false;
-	}
-
-	openOptionsUser() {
-		(
-			!this.showOptionsUser
-		) ? this.showOptionsUser = true : this.showOptionsUser = false;
-	}
 }
