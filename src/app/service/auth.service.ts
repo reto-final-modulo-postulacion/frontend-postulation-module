@@ -9,7 +9,7 @@ import { User } from "../authentication/interfaces/Interface.User";
 import { Router } from "@angular/router";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthService {
 	userData: any;
@@ -31,11 +31,11 @@ export class AuthService {
 		});
 	}
 
-	SignUp(email: string, password: string) {
+	SignUp(email: any, password: any) {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
-				console.log(result.user);
+				this.SetUserData(result.user);
 				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
@@ -59,7 +59,7 @@ export class AuthService {
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
 			localStorage.removeItem("user");
-			// this.router.navigate(['login']);
+			this.router.navigate(["auth/login"]);
 		});
 	}
 
