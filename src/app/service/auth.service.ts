@@ -47,12 +47,13 @@ export class AuthService {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
-				console.log("hola");
+				localStorage.setItem("user", JSON.stringify(this.userData));
 				this.SetUserData(result.user);
 				this.router.navigate(["list"]);
 			})
 			.catch((error) => {
-				console.log(error);
+				// console.log(error.message);
+				window.alert(error.message);
 			});
 	}
 
