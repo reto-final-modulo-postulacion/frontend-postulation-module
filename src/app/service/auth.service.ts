@@ -36,7 +36,7 @@ export class AuthService {
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
 				console.log(result.user);
-				this.router.navigate(["list/home "]);
+				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
 				window.alert(error.message);
@@ -49,10 +49,9 @@ export class AuthService {
 			.then((result) => {
 				localStorage.setItem("user", JSON.stringify(this.userData));
 				this.SetUserData(result.user);
-				this.router.navigate(["list"]);
+				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
-				// console.log(error.message);
 				window.alert(error.message);
 			});
 	}
@@ -69,7 +68,7 @@ export class AuthService {
 			this.afAuth.authState.subscribe((user) => {
 				if (user) {
 					localStorage.setItem("user", JSON.stringify(this.userData));
-					this.router.navigate(["list"]);
+					this.router.navigate(["list/home"]);
 				}
 			});
 		});
@@ -80,7 +79,7 @@ export class AuthService {
 			.signInWithPopup(provider)
 			.then((result) => {
 				this.SetUserData(result.user);
-				this.router.navigate(["list"]);
+				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
 				window.alert(error);
