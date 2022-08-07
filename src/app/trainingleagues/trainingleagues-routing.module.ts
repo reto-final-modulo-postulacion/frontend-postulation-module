@@ -1,17 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { ListTrainigLeaguesComponent } from './list-trainig-leagues/list-trainig-leagues.component';
+import { ListTrainigLeaguesComponent } from "./list-trainig-leagues/list-trainig-leagues.component";
 
 const routes: Routes = [
-  { 
-    path: '',
-    children: [
-      { path: 'home', component: ListTrainigLeaguesComponent },
-    ]
-  },
-  { path: '**', redirectTo: 'home' }
-]
+	{
+		path: "",
+		children: [{ path: "home", component: ListTrainigLeaguesComponent }],
+	},
+	{ path: "**", redirectTo: "home" },
+];
 
 @NgModule({
   declarations: [
@@ -21,5 +19,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-
-export class TrainingleaguesRoutingModule { }
+export class TrainingleaguesRoutingModule {}

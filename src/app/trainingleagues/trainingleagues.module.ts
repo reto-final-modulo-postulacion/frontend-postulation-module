@@ -1,8 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TrainingleaguesRoutingModule } from './trainingleagues-routing.module';
-
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { TrainingleaguesRoutingModule } from "./trainingleagues-routing.module";
 
 @NgModule({
   declarations: [],
@@ -11,4 +9,4 @@ import { TrainingleaguesRoutingModule } from './trainingleagues-routing.module';
     TrainingleaguesRoutingModule
   ]
 })
-export class TrainingleaguesModule { }
+export class TrainingleaguesModule {}

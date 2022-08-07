@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AngularFireModule } from '@angular/fire/compat';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { AngularFireModule } from "@angular/fire/compat";
 
-import { AuthRoutingModule } from './auth-routing.module';
-import { environment } from '../../environments/environment';
+import { AuthRoutingModule } from "./auth-routing.module";
+import { environment } from "../../environments/environment";
 
 @NgModule({
   declarations: [],
@@ -15,5 +15,4 @@ import { environment } from '../../environments/environment';
   exports: [],
   providers: [AuthenticationModule]
 })
-
-export class AuthenticationModule { }
+export class AuthenticationModule {}

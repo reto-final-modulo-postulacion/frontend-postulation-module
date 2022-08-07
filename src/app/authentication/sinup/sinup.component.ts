@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'app-sinup',
@@ -7,11 +7,7 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./sinup.component.css']
 })
 export class SinupComponent implements OnInit {
+	constructor(public authService: AuthService) {}
 
-  constructor(
-    public authService: AuthService
-  ) { }
-
-  ngOnInit(): void { }
-
+	ngOnInit(): void {}
 }
