@@ -16,7 +16,7 @@ import { TrainingleaguesModule } from "./trainingleagues/trainingleagues.module"
     AuthenticationModule,
     TrainingleaguesModule
   ],
-  providers: [],  
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
