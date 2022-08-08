@@ -29,6 +29,10 @@
 
 p{
     font-size: 16px;
+    text-align: justify;
+    font-family: "DM Sans", Sans-serif;
+    line-height: 15px;
+    letter-spacing: 0px;
 }
 
 li{
