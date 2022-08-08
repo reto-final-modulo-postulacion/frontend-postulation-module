@@ -42,11 +42,11 @@ export class AuthService {
 			.catch((error) => {
 				console.log(error);
 				Swal.fire({
-					title: 'Usuario Registrado',
-					icon: 'warning',
-					text: 'El usuario ya se encuentra registrado con anterioridad',
-					confirmButtonText: 'Aceptar'
-				})
+					title: "Usuario Registrado",
+					icon: "warning",
+					text: "El usuario ya se encuentra registrado con anterioridad",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 	// Recuperar contraseña
@@ -54,7 +54,7 @@ export class AuthService {
 		return this.afAuth
 			.sendPasswordResetEmail(passwordResetEmail)
 			.then(() => {
-				window.alert('Password reset email sent, check your inbox.');
+				window.alert("Password reset email sent, check your inbox.");
 			})
 			.catch((error) => {
 				window.alert(error);
@@ -71,11 +71,11 @@ export class AuthService {
 			})
 			.catch(() => {
 				Swal.fire({
-					title: 'Usuario invalido',
-					icon: 'error',
-					text: 'Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.',
-					confirmButtonText: 'Aceptar'
-				})
+					title: "Usuario invalido",
+					icon: "error",
+					text: "Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 
@@ -108,12 +108,11 @@ export class AuthService {
 				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
-
 				Swal.fire({
-					title: 'Error',
-					icon: 'error',
-					text: error
-				})
+					title: "Error",
+					icon: "error",
+					text: error,
+				});
 			});
 	}
 
