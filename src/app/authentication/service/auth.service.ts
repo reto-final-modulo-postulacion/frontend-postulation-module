@@ -31,6 +31,7 @@ export class AuthService {
 			}
 		});
 	}
+
 	// Registrar Usuario
 	SignUp(email: string, password: string, displayName: string) {
 		return this.afAuth
@@ -39,8 +40,7 @@ export class AuthService {
 				this.SetUserData(result.user, displayName);
 				this.router.navigate(["list/home"]);
 			})
-			.catch((error) => {
-				console.log(error);
+			.catch(() => {
 				Swal.fire({
 					title: 'Usuario Registrado',
 					icon: 'warning',
@@ -50,16 +50,57 @@ export class AuthService {
 			});
 	}
 	// Recuperar contraseña
-	ForgotPassword(passwordResetEmail: string) {
-		return this.afAuth
+	async ForgotPassword(passwordResetEmail: string) {
+		return await this.afAuth
 			.sendPasswordResetEmail(passwordResetEmail)
 			.then(() => {
-				window.alert('Password reset email sent, check your inbox.');
+				Swal.fire({
+					title: 'Correo Enviado',
+					icon: 'success',
+					text: 'Se envio un correo de electronico para cambiar su contraseña, por favir verifique su correo electronico',
+					confirmButtonText: 'Aceptar'
+				});
+				this.router.navigate(["auth/login"]);
 			})
-			.catch((error) => {
-				window.alert(error);
+			.catch(() => {
+				Swal.fire({
+					title: 'Fallo al enviar el email',
+					icon: 'warning',
+					text: `Fallo al enviar el correo de validacion de la contraseña, 
+						no se puede enviar el correo para validar la contraseña, vefique y vuelvalo a intentar`,
+					confirmButtonText: 'Aceptar'
+				})
 			});
 	}
+
+	async verifyPasswordResetCode(code: string): Promise<any> {
+		return await this.afAuth
+			.verifyPasswordResetCode(code)
+			.then((email) => {
+				return email;
+			}).catch((error) => {
+				Swal.fire({
+					title: 'Codigo explirado',
+					icon: 'error',
+					text: `El link actual con el cual intenta cambiar la contraseña ha expirado, 
+						vuelva ha solicitar un nuevo link para cambiar la contraseña`,
+					confirmButtonText: 'Aceptar'
+				})
+			});
+	}
+
+	async confirmPasswordReset(code: string, newPassword: string): Promise<boolean> {
+		return await this.afAuth
+			.confirmPasswordReset(code, newPassword)
+			.then(() => {
+				this.router.navigate(["auth/login"]);
+				return true;
+			}).catch((error) => {
+				window.alert(error.message);
+				return false;
+			});
+	}
+
 	// Iniciar sesion email/oaswird
 	SignIn(email: string, password: string) {
 		return this.afAuth
@@ -108,7 +149,6 @@ export class AuthService {
 				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
-
 				Swal.fire({
 					title: 'Error',
 					icon: 'error',
