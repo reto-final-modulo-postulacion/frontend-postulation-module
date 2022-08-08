@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import Swal from "sweetalert2";
 
 import { AuthService } from "../../service/auth.service";
 
@@ -18,9 +19,9 @@ export class SinupComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.form = this.formBuilder.group({
       displayName: [
         '',
@@ -51,9 +52,13 @@ export class SinupComponent implements OnInit {
     if (this.form.valid) {
       let { email, password } = this.form.value;
       this.authService.SignUp(email, password);
-      
+
     } else {
-      console.log('Registro invalido');
+      Swal.fire({
+        title:'Error al registrarse',
+        text:'Verifique que no quedo ningun campo vacio y que estos cumplen con la informacion requerida',
+        icon:'error',
+      });
     }
   }
 }
