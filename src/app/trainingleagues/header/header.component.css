@@ -1,0 +1,80 @@
+.card_poligon{
+ color: #3db9f3;
+}
+
+#container_card{
+ background: #3db9f3;
+}
+
+.line-grad {
+    position: relative;
+    height: 0px;
+    width: 100%;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background: linear-gradient(#232323, #232323) padding-box, linear-gradient(90deg, #ff3eaf, #6f00d0) border-box;
+}
+
+.elementor-element{
+    margin: 10px 0px 0px 0px;
+    padding: 0px 15px 0px 15px;
+    text-align: left;
+    color: #FFFFFF;
+    font-family: "DM Sans", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0px;
+}
+
+p{
+    font-size: 16px;
+}
+
+li{
+    display: list-item;
+}
+
+ul{
+    list-style-type: disc;
+}
+
+.gradient-btn {
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    color: white;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, rgba(111,0,208,1) 35%, rgba(255,62,162,1) 100%) padding-box, linear-gradient(90deg, rgba(111,0,208,1) 35%, rgba(255,62,162,1) 100%);
+}
+
+
+.button-shadow {
+    background-color: #e91e63;
+    color: #fff;
+    box-shadow: 0 4px 6px -1px #e9bbd0, 0 2px 4px -2px #f8bbd0;
+}
+
+.button-shadow:hover {
+    color: #fff;
+    outline: none;
+    box-shadow: 0 4px 6px -1px #e91bd0, 0 2px 4px -2px #e91bd0;
+}
+
+.button-shadow:focus {
+    color: #fff;
+    outline: none;
+    box-shadow: 0 4px 6px -1px #e91bd0, 0 2px 4px -2px #e91bd0;
+    border: 0px solid transparent;
+}
+.button-shadow:active {
+    color: #fff;
+    outline: none;
+    box-shadow: 0 4px 6px -1px #e9bbd0, 0 2px 4px -2px #f8bbd0;
+    border: 0px solid transparent;
+}
