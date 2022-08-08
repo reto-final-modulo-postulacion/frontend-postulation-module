@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "firebase/auth";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +9,14 @@ import { User } from "firebase/auth";
 export class NavbarComponent implements OnInit {
 	showMenu: boolean = false;
 	showOptionsUser: boolean = false;
+
 	user: any;
 
-	constructor() {}
+	constructor(public authService: AuthService) {}
 
 	ngOnInit(): void {
 		this.getDataUserLocal();
 	}
-
 	openMenu() {
 		(!this.showMenu) ? this.showMenu = true : this.showMenu = false;
 	}
@@ -28,7 +28,10 @@ export class NavbarComponent implements OnInit {
 	}
 
 	getDataUserLocal() {
-		this.user = JSON.parse(localStorage.getItem("user")!);
-		console.log(this.user);
+		this.authService.afAuth.onAuthStateChanged((user) => {
+			if (user) {
+				this.user = user;
+			}
+		});
 	}
 }

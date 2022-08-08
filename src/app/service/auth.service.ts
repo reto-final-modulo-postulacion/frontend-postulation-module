@@ -29,6 +29,7 @@ export class AuthService {
 				JSON.parse(localStorage.getItem("user")!);
 			}
 		});
+		// this.onlySesion();
 	}
 
 	SignUp(email: string, password: string) {
@@ -59,13 +60,13 @@ export class AuthService {
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
 			localStorage.removeItem("user");
-			// this.router.navigate(['login']);
+			this.router.navigate(["login"]);
 		});
 	}
 
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
-			this.afAuth.authState.subscribe((user) => {
+			this.afAuth.onAuthStateChanged((user) => {
 				if (user) {
 					localStorage.setItem("user", JSON.stringify(this.userData));
 					this.router.navigate(["list/home"]);
@@ -97,6 +98,13 @@ export class AuthService {
 		};
 		return userRef.set(userData, {
 			merge: true,
+		});
+	}
+
+	onlySesion() {
+		this.afAuth.onAuthStateChanged((user) => {
+			console.log("El Estado del useario a cambiado");
+			console.log(user);
 		});
 	}
 }
