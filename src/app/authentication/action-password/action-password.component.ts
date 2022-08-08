@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../service/auth.service';
 
 
-
 @Component({
   selector: 'app-action-password',
   templateUrl: './action-password.component.html',
@@ -46,7 +45,7 @@ export class ActionPasswordComponent implements OnInit {
                 });
               }
             })
-        }else {
+        } else {
           this.codeExpiration = true;
         }
       })
@@ -77,5 +76,4 @@ export class ActionPasswordComponent implements OnInit {
     }
 
   }
-
 }

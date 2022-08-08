@@ -8,7 +8,7 @@ import { TrainingleaguesModule } from "./trainingleagues/trainingleagues.module"
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,5 +19,4 @@ import { TrainingleaguesModule } from "./trainingleagues/trainingleagues.module"
   providers: [],
   bootstrap: [AppComponent]
 })
-
-export class AppModule { }
+export class AppModule {}

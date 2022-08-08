@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { ListTrainigLeaguesComponent } from "./list-trainig-leagues/list-trainig-leagues.component";
+import { PostulationHomeComponent } from "./postulation-home/postulation-home.component";
 
 const routes: Routes = [
 	{
 		path: "",
-		children: [{ path: "home", component: ListTrainigLeaguesComponent }],
+		children: [{ path: "home", component: PostulationHomeComponent }],
 	},
 	{ path: "**", redirectTo: "home" },
 ];

@@ -42,11 +42,11 @@ export class AuthService {
 			})
 			.catch(() => {
 				Swal.fire({
-					title: 'Usuario Registrado',
-					icon: 'warning',
-					text: 'El usuario ya se encuentra registrado con anterioridad',
-					confirmButtonText: 'Aceptar'
-				})
+					title: "Usuario Registrado",
+					icon: "warning",
+					text: "El usuario ya se encuentra registrado con anterioridad",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 	// Recuperar contraseña
@@ -65,17 +65,8 @@ export class AuthService {
 
 					this.router.navigate(["auth/login"]);
 				});
-
 			})
-			.catch(() => {
-				Swal.fire({
-					title: 'Fallo al enviar el email',
-					icon: 'warning',
-					text: `Fallo al enviar el correo de validacion de la contraseña, 
-						no se puede enviar el correo para validar la contraseña, vefique y vuelvalo a intentar`,
-					confirmButtonText: 'Aceptar'
-				})
-			});
+
 	}
 
 	// Veificacion del codigo del correo
@@ -124,11 +115,11 @@ export class AuthService {
 			})
 			.catch(() => {
 				Swal.fire({
-					title: 'Usuario invalido',
-					icon: 'error',
-					text: 'Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.',
-					confirmButtonText: 'Aceptar'
-				})
+					title: "Usuario invalido",
+					icon: "error",
+					text: "Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 
@@ -162,10 +153,10 @@ export class AuthService {
 			})
 			.catch((error) => {
 				Swal.fire({
-					title: 'Error',
-					icon: 'error',
-					text: error
-				})
+					title: "Error",
+					icon: "error",
+					text: error,
+				});
 			});
 	}
 

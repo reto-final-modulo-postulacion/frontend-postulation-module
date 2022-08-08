@@ -3,8 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { LoginComponent } from "./login/login.component";
 import { SinupComponent } from "./sinup/sinup.component";
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ActionPasswordComponent } from './action-password/action-password.component';
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { ActionPasswordComponent } from "./action-password/action-password.component";
 
 
 const routes: Routes = [
@@ -13,8 +13,8 @@ const routes: Routes = [
 		children: [
 			{ path: "login", component: LoginComponent },
 			{ path: "sinup", component: SinupComponent },
-			{ path: 'forgot-password', component: ForgotPasswordComponent },
-			{ path: 'action-password', component: ActionPasswordComponent },
+			{ path: "forgot-password", component: ForgotPasswordComponent },
+			{ path: "action-password", component: ActionPasswordComponent },
 			{ path: "**", redirectTo: "login" },
 		],
 	},
@@ -26,4 +26,4 @@ const routes: Routes = [
 		RouterModule.forChild(routes),
 	]
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}
