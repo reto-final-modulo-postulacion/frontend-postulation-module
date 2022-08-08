@@ -5,7 +5,7 @@ import {
 	AngularFirestoreDocument,
 } from "@angular/fire/compat/firestore";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { User } from "../authentication/interfaces/Interface.User";
+import { User } from "../interfaces/Interface.User";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 
@@ -30,9 +30,8 @@ export class AuthService {
 				JSON.parse(localStorage.getItem("user")!);
 			}
 		});
-		// this.onlySesion();
 	}
-
+	// Registrar Usuario
 	SignUp(email: string, password: string, displayName: string) {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
@@ -46,10 +45,22 @@ export class AuthService {
 					title: "Usuario Registrado",
 					icon: "warning",
 					text: "El usuario ya se encuentra registrado con anterioridad",
+					confirmButtonText: "Aceptar",
 				});
 			});
 	}
-
+	// Recuperar contraseña
+	ForgotPassword(passwordResetEmail: string) {
+		return this.afAuth
+			.sendPasswordResetEmail(passwordResetEmail)
+			.then(() => {
+				window.alert("Password reset email sent, check your inbox.");
+			})
+			.catch((error) => {
+				window.alert(error);
+			});
+	}
+	// Iniciar sesion email/oaswird
 	SignIn(email: string, password: string) {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
@@ -58,11 +69,17 @@ export class AuthService {
 				this.SetUserData(result.user);
 				this.router.navigate(["list/home"]);
 			})
-			.catch((error) => {
-				window.alert(error.message);
+			.catch(() => {
+				Swal.fire({
+					title: "Usuario invalido",
+					icon: "error",
+					text: "Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 
+	// Salir Sesion
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
 			localStorage.removeItem("user");
@@ -70,6 +87,7 @@ export class AuthService {
 		});
 	}
 
+	// Iniciar sesion con google
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
 			this.afAuth.onAuthStateChanged((user) => {
@@ -81,6 +99,7 @@ export class AuthService {
 		});
 	}
 
+	// Logica de atenticacion para ejecutar los proveedores automaticos.
 	AuthLogin(provider: any) {
 		return this.afAuth
 			.signInWithPopup(provider)
@@ -89,10 +108,15 @@ export class AuthService {
 				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
-				window.alert(error);
+				Swal.fire({
+					title: "Error",
+					icon: "error",
+					text: error,
+				});
 			});
 	}
 
+	// Configuracion de inicio de sesion
 	SetUserData(user: any, displayName?: string) {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`,

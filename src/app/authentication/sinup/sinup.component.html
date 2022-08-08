@@ -17,6 +17,7 @@
                             <input type="text" name="name" id="name" placeholder="Name"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                 formControlName="displayName" />
+
                             <div class="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded relative"
                                 role="alert"
                                 *ngIf="!form.get('displayName')?.valid && form.get('displayName')?.touched">
@@ -51,8 +52,8 @@
 
                             <div class="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded relative"
                                 role="alert" *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
-                                <p class="block sm:inline">La contraseña debe contar de <strong
-                                        class="font-bold"> 3 Mayusculas, 3 Numeros y 2 Caracteres Especiales</strong>.</p>
+                                <p class="block sm:inline">La contraseña debe contar de <strong class="font-bold"> 3
+                                        Mayusculas, 3 Numeros y 2 Caracteres Especiales</strong>.</p>
                             </div>
                         </div>
 
@@ -66,7 +67,8 @@
 
                     </form>
 
-                    <p class="mt-2 text-sm text-center text-gray-400">¿Ya tienes cuenta?<a routerLink="/login"
+                    <p class="mt-2 text-sm text-center text-gray-400">¿Ya tienes cuenta?<a routerLink="/auth/login"
+                            routerLinkActive="active"
                             class="text-blue-500 focus:outline-none focus:underline hover:underline">Acceder
                             aquí</a>.
                     </p>
