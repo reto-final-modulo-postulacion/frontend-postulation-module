@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, GuardsCheckEnd } from "@angular/router";
 
 import { LoginComponent } from "./login/login.component";
 import { SinupComponent } from "./sinup/sinup.component";
@@ -12,7 +12,7 @@ const routes: Routes = [
 		children: [
 			{ path: "login", component: LoginComponent },
 			{ path: "sinup", component: SinupComponent },
-			{ path: 'forgot-password', component: ForgotPasswordComponent },
+			{ path: 'forgot-password', component: ForgotPasswordComponent, canActivateChild:[] },
 			{ path: 'action-password', component: ActionPasswordComponent },
 			{ path: "**", redirectTo: "login" },
 		],

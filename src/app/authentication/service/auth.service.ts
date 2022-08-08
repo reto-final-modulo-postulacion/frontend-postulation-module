@@ -59,8 +59,13 @@ export class AuthService {
 					icon: 'success',
 					text: 'Se envio un correo de electronico para cambiar su contraseña, por favir verifique su correo electronico',
 					confirmButtonText: 'Aceptar'
+				}).then(result => {
+					if (result.isConfirmed)
+						this.router.navigate(["auth/login"]);
+
+					this.router.navigate(["auth/login"]);
 				});
-				this.router.navigate(["auth/login"]);
+
 			})
 			.catch(() => {
 				Swal.fire({
@@ -78,14 +83,19 @@ export class AuthService {
 			.verifyPasswordResetCode(code)
 			.then((email) => {
 				return email;
-			}).catch((error) => {
+			}).catch(() => {
 				Swal.fire({
 					title: 'Codigo explirado',
 					icon: 'error',
 					text: `El link actual con el cual intenta cambiar la contraseña ha expirado, 
 						vuelva ha solicitar un nuevo link para cambiar la contraseña`,
 					confirmButtonText: 'Aceptar'
-				})
+				}).then(result => {
+					if (result.isConfirmed)
+						this.router.navigate(["auth/login"]);
+
+					this.router.navigate(["auth/login"]);
+				});
 			});
 	}
 

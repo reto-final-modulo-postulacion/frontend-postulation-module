@@ -14,7 +14,7 @@ import { AuthService } from '../service/auth.service';
 export class ActionPasswordComponent implements OnInit {
 
   private code: string = '';
-  private codeExpiration: boolean = true;
+  protected codeExpiration: boolean = true;
 
   fromPasswordReset = new FormGroup({
     password: new FormControl(''),
@@ -46,8 +46,7 @@ export class ActionPasswordComponent implements OnInit {
                 });
               }
             })
-        }
-        else {
+        }else {
           this.codeExpiration = true;
         }
       })
