@@ -43,10 +43,10 @@ export class AuthService {
 			.catch((error) => {
 				console.log(error);
 				Swal.fire({
-					title:'Usuario Registrado',
-					icon:'warning',
-					text:'El usuario ya se encuentra registrado con anterioridad'
-				})
+					title: "Usuario Registrado",
+					icon: "warning",
+					text: "El usuario ya se encuentra registrado con anterioridad",
+				});
 			});
 	}
 
