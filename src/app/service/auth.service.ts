@@ -7,6 +7,7 @@ import {
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { User } from "../authentication/interfaces/Interface.User";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 @Injectable({
 	providedIn: 'root'
@@ -31,15 +32,20 @@ export class AuthService {
 		});
 	}
 
-	SignUp(email: any, password: any) {
+	SignUp(email: string, password: string, displayName: string) {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
-				this.SetUserData(result.user);
+				this.SetUserData(result.user, displayName);
 				this.router.navigate(["list/home"]);
 			})
 			.catch((error) => {
-				window.alert(error.message);
+				console.log(error);
+				Swal.fire({
+					title:'Usuario Registrado',
+					icon:'warning',
+					text:'El usuario ya se encuentra registrado con anterioridad'
+				})
 			});
 	}
 
@@ -86,14 +92,14 @@ export class AuthService {
 			});
 	}
 
-	SetUserData(user: any) {
+	SetUserData(user: any, displayName?: string) {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`,
 		);
 		const userData: User = {
 			uid: user.uid,
 			email: user.email,
-			displayName: user.displayName,
+			displayName: user.displayName || displayName,
 		};
 		return userRef.set(userData, {
 			merge: true,

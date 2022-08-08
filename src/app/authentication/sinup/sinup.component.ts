@@ -50,9 +50,8 @@ export class SinupComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      let { email, password } = this.form.value;
-      this.authService.SignUp(email, password);
-
+      let { email, password, displayName } = this.form.value;
+      this.authService.SignUp(email!, password!, displayName!);
     } else {
       Swal.fire({
         title:'Error al registrarse',
