@@ -78,6 +78,7 @@ export class AuthService {
 			});
 	}
 
+	// Veificacion del codigo del correo
 	async verifyPasswordResetCode(code: string): Promise<any> {
 		return await this.afAuth
 			.verifyPasswordResetCode(code)
@@ -99,6 +100,7 @@ export class AuthService {
 			});
 	}
 
+	// Confirmacion del reset de la contraseña
 	async confirmPasswordReset(code: string, newPassword: string): Promise<boolean> {
 		return await this.afAuth
 			.confirmPasswordReset(code, newPassword)
@@ -112,8 +114,8 @@ export class AuthService {
 	}
 
 	// Iniciar sesion email/oaswird
-	SignIn(email: string, password: string) {
-		return this.afAuth
+	async SignIn(email: string, password: string) {
+		return await this.afAuth
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
 				localStorage.setItem("user", JSON.stringify(this.userData));
@@ -131,16 +133,16 @@ export class AuthService {
 	}
 
 	// Salir Sesion
-	SignOut() {
-		return this.afAuth.signOut().then(() => {
+	async SignOut() {
+		return await this.afAuth.signOut().then(() => {
 			localStorage.removeItem("user");
 			this.router.navigate(["auth/login"]);
 		});
 	}
 
 	// Iniciar sesion con google
-	GoogleAuth() {
-		return this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
+	async GoogleAuth() {
+		return await this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
 			this.afAuth.onAuthStateChanged((user) => {
 				if (user) {
 					localStorage.setItem("user", JSON.stringify(this.userData));
