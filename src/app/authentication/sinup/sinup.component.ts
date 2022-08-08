@@ -5,9 +5,8 @@ import {
 	FormGroup,
 	FormControl,
 } from "@angular/forms";
-import Swal from "sweetalert2";
-
 import { AuthService } from "../../service/auth.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-sinup',
@@ -20,11 +19,6 @@ export class SinupComponent implements OnInit {
 		email: new FormControl(""),
 		password: new FormControl(""),
 	});
-
-	constructor(
-		public authService: AuthService,
-		private formBuilder: FormBuilder,
-	) {}
 
 	constructor(
 		public authService: AuthService,
