@@ -1,8 +1,11 @@
 .card_poligon{
  color: #3db9f3;
 }
-
-#container_card{
+.blockquote_card{
+  display: grid;
+  height: 35rem;
+}
+.container_card{
  background: #3db9f3;
 }
 
