@@ -8,7 +8,7 @@ import { TrainingleaguesModule } from "./trainingleagues/trainingleagues.module"
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
