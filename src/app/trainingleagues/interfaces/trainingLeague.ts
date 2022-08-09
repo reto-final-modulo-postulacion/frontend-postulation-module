@@ -1,7 +1,8 @@
 export interface TrainingLeague {
 	id: "",
 	name: "",
-	description: [],
+	description: "",
+	expecialities: [],
 	dateConvocationEnd: "",
 	img: ""
 }

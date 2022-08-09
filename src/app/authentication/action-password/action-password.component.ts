@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../service/auth.service';
 
-
 @Component({
   selector: 'app-action-password',
   templateUrl: './action-password.component.html',
