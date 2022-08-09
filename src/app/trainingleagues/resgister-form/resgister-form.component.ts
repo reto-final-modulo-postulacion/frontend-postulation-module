@@ -10,19 +10,26 @@ export class ResgisterFormComponent implements OnInit {
 
   formRegisterLigue = new FormGroup({
     name: new FormControl(''),
+    lastName: new FormControl(''),
   })
 
   constructor(
-    public FormBuilder: FormBuilder,
+    public formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-    this.formRegisterLigue = this.FormBuilder.group({
+    this.formRegisterLigue = this.formBuilder.group({
       name: [
         '',
         [
           Validators.required,
-          Validators.max(5)
+          
+        ]
+      ],
+      lastName:[
+        '',
+        [
+          Validators.required,
         ]
       ]
     })
