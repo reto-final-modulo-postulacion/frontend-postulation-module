@@ -18,7 +18,7 @@ const routes: Routes = [
 			import("./trainingleagues/trainingleagues.module").then(
 				(m) => m.TrainingleaguesModule,
 			),
-		// canActivate: [GuardaAuthGuard],
+		// canActivate: [AngularFireAuth],
 	},
 	{
 		path: "**",
