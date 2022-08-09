@@ -7,6 +7,7 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { PostulationHomeComponent } from './postulation-home/postulation-home.component';
 import { HttpClientModule } from "@angular/common/http";
 import { ResgisterFormComponent } from './resgister-form/resgister-form.component';
+import { DetailedChallengeInformationComponent } from './detailed-challenge-information/detailed-challenge-information.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ResgisterFormComponent } from './resgister-form/resgister-form.componen
     HeaderComponent,
     NavbarComponent,
     PostulationHomeComponent,
-    ResgisterFormComponent
+    ResgisterFormComponent,
+    DetailedChallengeInformationComponent
   ],
   imports: [
     CommonModule,
