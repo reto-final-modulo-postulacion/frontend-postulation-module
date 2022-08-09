@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-resgister-form',
   templateUrl: './resgister-form.component.html',

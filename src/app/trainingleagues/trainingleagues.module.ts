@@ -16,6 +16,7 @@ import { ResgisterFormComponent } from './resgister-form/resgister-form.componen
 import { DetailedChallengeInformationComponent } from './detailed-challenge-information/detailed-challenge-information.component';
 
 
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -23,7 +24,7 @@ import { DetailedChallengeInformationComponent } from './detailed-challenge-info
     ListTrainigLeaguesComponent,
     PostulationHomeComponent,
     ResgisterFormComponent,
-    DetailedChallengeInformationComponent
+    DetailedChallengeInformationComponent,
   ],
   imports: [
     CommonModule,
