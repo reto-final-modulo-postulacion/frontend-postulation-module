@@ -3,9 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../service/auth.service';
-import { AngularFireAuth } from "@angular/fire/compat/auth";
-
-
 
 @Component({
   selector: 'app-action-password',
@@ -13,10 +10,6 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
   styleUrls: ['./action-password.component.css']
 })
 export class ActionPasswordComponent implements OnInit {
-	fromPasswordReset = new FormGroup({
-		password: new FormControl(""),
-		checketPassword: new FormControl(""),
-	});
 
   private code: string = '';
   protected codeExpiration: boolean = true;
@@ -51,7 +44,7 @@ export class ActionPasswordComponent implements OnInit {
                 });
               }
             })
-        }else {
+        } else {
           this.codeExpiration = true;
         }
       })
@@ -82,13 +75,4 @@ export class ActionPasswordComponent implements OnInit {
     }
 
   }
-
-
-		Swal.fire({
-			title: "Error al Iniciar Sesion",
-			icon: "error",
-			text: "Verifique que los datos ingresados son correctos y vuelva a intentarlo o verifique que este registrado",
-			confirmButtonText: "Aceptar",
-		});
-	}
 }

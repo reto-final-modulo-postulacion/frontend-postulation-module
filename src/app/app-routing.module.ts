@@ -10,7 +10,7 @@ const routes: Routes = [
 			import("./authentication/authentication.module").then(
 				(m) => m.AuthenticationModule,
 			),
-		canActivateChild: [AngularFireAuth],
+		// canActivateChild: [AngularFireAuth],
 	},
 	{
 		path: "list",
@@ -18,7 +18,7 @@ const routes: Routes = [
 			import("./trainingleagues/trainingleagues.module").then(
 				(m) => m.TrainingleaguesModule,
 			),
-		canActivate: [GuardaAuthGuard],
+		// canActivate: [GuardaAuthGuard],
 	},
 	{
 		path: "**",
