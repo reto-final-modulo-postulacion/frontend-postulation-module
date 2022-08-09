@@ -1,7 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { GuardaAuthGuard } from './guard/guarda-auth.guard';
 
 const routes: Routes = [
 	{
