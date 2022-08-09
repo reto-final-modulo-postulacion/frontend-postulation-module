@@ -1,8 +1,11 @@
 .card_poligon{
  color: #3db9f3;
 }
-
-#container_card{
+/* .blockquote_card{ */
+/*   display: grid; */
+/*   height: 35rem; */
+/* } */
+.container_card{
  background: #3db9f3;
 }
 
@@ -82,3 +85,38 @@ ul{
     box-shadow: 0 4px 6px -1px #e9bbd0, 0 2px 4px -2px #f8bbd0;
     border: 0px solid transparent;
 }
+
+
+@media(max-width: 766px){
+
+.blockquote_card{
+  display: grid;
+  height: auto;
+}
+}
+
+@media(min-width: 767px){
+
+  .blockquote_card{
+    display: grid;
+    height: 30rem;
+  }
+}
+
+@media(min-width: 1024px){
+
+  .blockquote_card{
+    display: grid;
+    height: 35rem;
+  }
+}
+
+@media(min-width: 1096px){
+
+  .blockquote_card{
+    display: grid;
+    height: 32rem;
+  }
+}
+
+
