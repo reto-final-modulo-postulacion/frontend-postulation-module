@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { rest } from 'cypress/types/lodash';
 import { Observable } from 'rxjs';
 import { AuthService } from "../authentication/service/auth.service";
 
