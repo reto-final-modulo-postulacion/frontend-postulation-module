@@ -7,6 +7,7 @@ import { MatDatepickerModule,  } from '@angular/material/datepicker';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from "@angular/material/core";
+import { MatCardModule } from "@angular/material/card";
 
 import { ListTrainigLeaguesComponent } from "./list-trainig-leagues/list-trainig-leagues.component";
 import { TrainingleaguesRoutingModule } from "./trainingleagues-routing.module";
@@ -35,7 +36,8 @@ import { DetailedChallengeInformationComponent } from './detailed-challenge-info
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ]
 })
 export class TrainingleaguesModule { }
