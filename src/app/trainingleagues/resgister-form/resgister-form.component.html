@@ -41,53 +41,186 @@
                     Nacimiento</label>
 
                 <div class="relative">
-                    <input name="" type="text" matInput [matDatepicker]="picker"
-                        datePickerFormat="YYYY/MM/DD"
+                    <input name="" type="text" matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                          focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
-                          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " 
-                          placeholder="Seleccione su fecha de nacimiento">
+                          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento">
                     <mat-datepicker-toggle matSuffix [for]="picker"
                         class="flex absolute inset-y-0 left-0 items-center pl-3 text-gray-50 z-50 ">
                     </mat-datepicker-toggle>
                     <mat-datepicker touchUi #picker></mat-datepicker>
                 </div>
-
             </div>
 
             <div>
-                <label for="nacionaidad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nacionalidad</label>
+                <label for="nacionaidad"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nacionalidad</label>
                 <select name="nacionalidad" id="nacionalidad"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Flowbite" required>
-                    <option selected disabled>Seleccione un pais</option>
-                    <option value="cc">MX</option>
-                    <option value="ti">ESP</option>
-                    <option value="nit">COL</option>
-                    <option value="pasaporte">PER</option>
+                    <option selected disabled>Seleccione su Nacionalidad</option>
+                    <option value="MX">MX</option>
+                    <option value="ESP">ESP</option>
+                    <option value="COL">COL</option>
+                    <option value="PER">PER</option>
                 </select>
             </div>
         </div>
+
         <div class="mb-6">
-            <label for="imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email
-                address</label>
-                <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" required>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+            <label for="imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Foto
+                Personal</label>
+            <input
+                class="block w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                id="imagen" type="file">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG, JPEG.</p>
         </div>
+
+
+        <div class="grid gap-6 mb-6 lg:grid-cols-2">
+            <div>
+                <label for="enterPriceName"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre Empresa</label>
+                <input type="text" id="enterPriceName"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Sofka Technologies" required formControlName="enterPriceName" maxlength="50">
+            </div>
+
+            <div>
+                <label for="occupation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ultimo
+                    Cargo</label>
+                <input type="text" id="occupation"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Programador" required formControlName="occupation" maxlength="50">
+            </div>
+        </div>
+
         <div class="mb-6">
-            <label for="password"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Password</label>
-            <input type="password" id="password"
+            <label for="currentOccupation"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ocupacion Actual</label>
+            <input type="text" id="currentOccupation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="•••••••••" required>
+                placeholder="Actualmente ocupo el cargo de Administracion" required maxlength="50">
         </div>
+
+
         <div class="mb-6">
-            <label for="confirm_password"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Confirm password</label>
-            <input type="password" id="confirm_password"
+            <label for="levelEducation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nivel de
+                Educacion</label>
+            <select class type="password" id="levelEducation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="•••••••••" required>
+                required>
+
+                <option selected disabled>Seleccione Nivel de Estudio</option>
+                <option value="ninguno">Ninguno</option>
+                <option value="bachillerato">Bachillerato</option>
+                <option value="técnico">Técnico</option>
+                <option value="tecnólogo">Tecnólogo</option>
+                <option value="profesional">Profesional</option>
+            </select>
         </div>
+
+
+        <div class="grid gap-6 mb-6 lg:grid-cols-3">
+            <div>
+                <label for="countryApplicant"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pais donde se
+                    Postula</label>
+                <select name="countryApplicant" id="countryApplicant"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Flowbite" required>
+                    <option selected disabled>Seleccione un pais</option>
+                    <option value="MX">MX</option>
+                    <option value="ESP">ESP</option>
+                    <option value="COL">COL</option>
+                    <option value="PER">PER</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="department"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Departamento</label>
+                <select name="department" id="department"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+                    <option selected disabled>Seleccione Departamento</option>
+                    <option value="amazonas">Amazonas</option>
+                    <option value="antioquía">Antioquía</option>
+                    <option value="arauca">Arauca</option>
+                    <option value="atlántico">Atlántico</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="municipality"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Municipio</label>
+                <select name="municipality" id="municipality"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+                    <option selected disabled>Seleccione Municipio</option>
+                    <option value="amazonas">Amazonas</option>
+                    <option value="antioquía">Antioquía</option>
+                    <option value="arauca">Arauca</option>
+                    <option value="atlántico">Atlántico</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="Address"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Direccion</label>
+            <input type="text" id="Address"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Example: calle 35 # 33-09" required maxlength="50">
+        </div>
+
+
+        <div class="grid gap-6 mb-6 lg:grid-cols-3">
+            <div>
+                <label for="levelEnglish"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nivel de Ingles</label>
+                <select name="levelEnglish" id="levelEnglish"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+                    <option selected disabled>Nive De Ingles</option>
+                    <option value="a1">A1</option>
+                    <option value="a2">A2</option>
+                    <option value="b1">B1</option>
+                    <option value="b2">B2</option>
+                    <option value="c1">C1</option>
+                    <option value="c2">C2</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="study"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Estudia Actualmente?</label>
+                <select name="study" id="study"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+                    <option selected disabled>Seleccione Departamento</option>
+                    <option value="si">Si</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="municipality"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Municipio</label>
+                <select name="municipality" id="municipality"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+                    <option selected disabled>Seleccione Municipio</option>
+                    <option value="amazonas">Amazonas</option>
+                    <option value="antioquía">Antioquía</option>
+                    <option value="arauca">Arauca</option>
+                    <option value="atlántico">Atlántico</option>
+                </select>
+            </div>
+        </div>
+
+
+
 
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5  text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
