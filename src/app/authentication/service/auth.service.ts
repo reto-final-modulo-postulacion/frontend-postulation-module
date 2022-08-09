@@ -66,15 +66,7 @@ export class AuthService {
 					this.router.navigate(["auth/login"]);
 				});
 			})
-			.catch(() => {
-				Swal.fire({
-					title: 'Fallo al enviar el email',
-					icon: 'warning',
-					text: `Fallo al enviar el correo de validacion de la contraseña, 
-						no se puede enviar el correo para validar la contraseña, vefique y vuelvalo a intentar`,
-					confirmButtonText: 'Aceptar'
-				})
-			});
+
 	}
 
 	// Veificacion del codigo del correo

@@ -6,13 +6,15 @@ import { TrainingleaguesRoutingModule } from "./trainingleagues-routing.module";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { PostulationHomeComponent } from './postulation-home/postulation-home.component';
 import { HttpClientModule } from "@angular/common/http";
+import { ResgisterFormComponent } from './resgister-form/resgister-form.component';
 
 @NgModule({
   declarations: [
     ListTrainigLeaguesComponent,
     HeaderComponent,
     NavbarComponent,
-    PostulationHomeComponent
+    PostulationHomeComponent,
+    ResgisterFormComponent
   ],
   imports: [
     CommonModule,
