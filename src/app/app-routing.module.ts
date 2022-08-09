@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { GuardaAuthGuard } from './guard/guarda-auth.guard';
 
 const routes: Routes = [
 	{
@@ -9,7 +10,7 @@ const routes: Routes = [
 			import("./authentication/authentication.module").then(
 				(m) => m.AuthenticationModule,
 			),
-		canActivate: [AngularFireAuth],
+		canActivateChild: [AngularFireAuth],
 	},
 	{
 		path: "list",
@@ -17,6 +18,7 @@ const routes: Routes = [
 			import("./trainingleagues/trainingleagues.module").then(
 				(m) => m.TrainingleaguesModule,
 			),
+		canActivate: [GuardaAuthGuard],
 	},
 	{
 		path: "**",
@@ -25,12 +27,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes),
-  ],
-  exports:[
-    RouterModule
-  ]
+	declarations: [],
+	imports: [
+		RouterModule.forRoot(routes),
+	],
+	exports: [
+		RouterModule
+	]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
