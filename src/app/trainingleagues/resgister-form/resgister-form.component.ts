@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-resgister-form',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResgisterFormComponent implements OnInit {
 
-  constructor() { }
+  formRegisterLigue = new FormGroup({
+    name: new FormControl('')
+  })
+
+  constructor(
+    public FormBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
+    this.formRegisterLigue = this.FormBuilder.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.max(5)
+        ]
+      ]
+    })
   }
 
 }

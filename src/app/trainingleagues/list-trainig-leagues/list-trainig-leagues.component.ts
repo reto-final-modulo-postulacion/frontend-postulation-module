@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { TrainingLeague } from "../interfaces/trainingLeague";
-import { TrainingLeagueApiService } from "../service/training-league-api.service";
+import { TrainingLeagueApiService } from "../service/service-api-countries/training-league-api.service";
 
 @Component({
   selector: 'app-list-trainig-leagues',
