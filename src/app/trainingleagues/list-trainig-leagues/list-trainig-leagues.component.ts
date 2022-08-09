@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { TrainingLeague } from "../interfaces/trainingLeague";
+import { TrainingLeagueApiService } from "../service/training-league-api.service";
 
 @Component({
   selector: 'app-list-trainig-leagues',
@@ -6,7 +8,17 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ['./list-trainig-leagues.component.css']
 })
 export class ListTrainigLeaguesComponent implements OnInit {
-	constructor() {}
+  trainingLeagues: TrainingLeague[]=[];
 
-	ngOnInit(): void {}
+	constructor(private trainingLeagueApiService: TrainingLeagueApiService) {}
+
+	ngOnInit(): void {
+	  this.addTrainingLeagues();
+	}
+
+	addTrainingLeagues(){
+    this.trainingLeagueApiService.getTrainingLeague().subscribe(
+      (trainingLeague) => this.trainingLeagues = trainingLeague
+    );
+	}
 }

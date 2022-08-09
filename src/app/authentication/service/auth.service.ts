@@ -42,11 +42,11 @@ export class AuthService {
 			})
 			.catch(() => {
 				Swal.fire({
-					title: 'Usuario Registrado',
-					icon: 'warning',
-					text: 'El usuario ya se encuentra registrado con anterioridad',
-					confirmButtonText: 'Aceptar'
-				})
+					title: "Usuario Registrado",
+					icon: "warning",
+					text: "El usuario ya se encuentra registrado con anterioridad",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 	// Recuperar contraseña
@@ -65,7 +65,6 @@ export class AuthService {
 
 					this.router.navigate(["auth/login"]);
 				});
-
 			})
 			.catch(() => {
 				Swal.fire({
@@ -124,11 +123,11 @@ export class AuthService {
 			})
 			.catch(() => {
 				Swal.fire({
-					title: 'Usuario invalido',
-					icon: 'error',
-					text: 'Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.',
-					confirmButtonText: 'Aceptar'
-				})
+					title: "Usuario invalido",
+					icon: "error",
+					text: "Correo o Contraseña Incorrectos, verifique que los datos ingresados son validos y vuelva a intentarlo.",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	}
 
@@ -162,10 +161,10 @@ export class AuthService {
 			})
 			.catch((error) => {
 				Swal.fire({
-					title: 'Error',
-					icon: 'error',
-					text: error
-				})
+					title: "Error",
+					icon: "error",
+					text: error,
+				});
 			});
 	}
 
