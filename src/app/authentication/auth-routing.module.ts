@@ -6,6 +6,7 @@ import { SinupComponent } from "./sinup/sinup.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ActionPasswordComponent } from "./action-password/action-password.component";
 
+
 const routes: Routes = [
 	{
 		path: "",

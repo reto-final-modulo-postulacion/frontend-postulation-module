@@ -31,6 +31,7 @@ export class AuthService {
 			}
 		});
 	}
+
 	// Registrar Usuario
 	SignUp(email: string, password: string, displayName: string) {
 		return this.afAuth
@@ -39,8 +40,7 @@ export class AuthService {
 				this.SetUserData(result.user, displayName);
 				this.router.navigate(["list/home"]);
 			})
-			.catch((error) => {
-				console.log(error);
+			.catch(() => {
 				Swal.fire({
 					title: "Usuario Registrado",
 					icon: "warning",
@@ -50,19 +50,71 @@ export class AuthService {
 			});
 	}
 	// Recuperar contraseña
-	ForgotPassword(passwordResetEmail: string) {
-		return this.afAuth
+	async ForgotPassword(passwordResetEmail: string) {
+		return await this.afAuth
 			.sendPasswordResetEmail(passwordResetEmail)
 			.then(() => {
-				window.alert("Password reset email sent, check your inbox.");
+				Swal.fire({
+					title: 'Correo Enviado',
+					icon: 'success',
+					text: 'Se envio un correo de electronico para cambiar su contraseña, por favir verifique su correo electronico',
+					confirmButtonText: 'Aceptar'
+				}).then(result => {
+					if (result.isConfirmed)
+						this.router.navigate(["auth/login"]);
+
+					this.router.navigate(["auth/login"]);
+				});
 			})
-			.catch((error) => {
-				window.alert(error);
+			.catch(() => {
+				Swal.fire({
+					title: 'Fallo al enviar el email',
+					icon: 'warning',
+					text: `Fallo al enviar el correo de validacion de la contraseña, 
+						no se puede enviar el correo para validar la contraseña, vefique y vuelvalo a intentar`,
+					confirmButtonText: 'Aceptar'
+				})
 			});
 	}
+
+	// Veificacion del codigo del correo
+	async verifyPasswordResetCode(code: string): Promise<any> {
+		return await this.afAuth
+			.verifyPasswordResetCode(code)
+			.then((email) => {
+				return email;
+			}).catch(() => {
+				Swal.fire({
+					title: 'Codigo explirado',
+					icon: 'error',
+					text: `El link actual con el cual intenta cambiar la contraseña ha expirado, 
+						vuelva ha solicitar un nuevo link para cambiar la contraseña`,
+					confirmButtonText: 'Aceptar'
+				}).then(result => {
+					if (result.isConfirmed)
+						this.router.navigate(["auth/login"]);
+
+					this.router.navigate(["auth/login"]);
+				});
+			});
+	}
+
+	// Confirmacion del reset de la contraseña
+	async confirmPasswordReset(code: string, newPassword: string): Promise<boolean> {
+		return await this.afAuth
+			.confirmPasswordReset(code, newPassword)
+			.then(() => {
+				this.router.navigate(["auth/login"]);
+				return true;
+			}).catch((error) => {
+				window.alert(error.message);
+				return false;
+			});
+	}
+
 	// Iniciar sesion email/oaswird
-	SignIn(email: string, password: string) {
-		return this.afAuth
+	async SignIn(email: string, password: string) {
+		return await this.afAuth
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
 				localStorage.setItem("user", JSON.stringify(this.userData));
@@ -80,16 +132,16 @@ export class AuthService {
 	}
 
 	// Salir Sesion
-	SignOut() {
-		return this.afAuth.signOut().then(() => {
+	async SignOut() {
+		return await this.afAuth.signOut().then(() => {
 			localStorage.removeItem("user");
 			this.router.navigate(["auth/login"]);
 		});
 	}
 
 	// Iniciar sesion con google
-	GoogleAuth() {
-		return this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
+	async GoogleAuth() {
+		return await this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
 			this.afAuth.onAuthStateChanged((user) => {
 				if (user) {
 					localStorage.setItem("user", JSON.stringify(this.userData));
