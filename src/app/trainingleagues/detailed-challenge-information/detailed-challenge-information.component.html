@@ -1,1 +1,13 @@
-<p>detailed-challenge-information works!</p>
+<div class="flex flex-col justify-center items-center p-32">
+  <mat-card class="demo-inline-calendar-card">
+    <mat-calendar #picker touchUi [(selected)]="selected">
+    </mat-calendar>
+    <div class="line-grad"></div>
+    <div class="flex flex-col justify-center px-12">
+    <button class="button-shadow gradient-btn capitalize mt-2" type="button">
+       Agendar Reto
+    </button>
+    </div>
+   </mat-card>
+  <p>Selected date: {{selected}}</p>
+</div>
