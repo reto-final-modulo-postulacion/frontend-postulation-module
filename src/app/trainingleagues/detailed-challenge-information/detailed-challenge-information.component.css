@@ -2,6 +2,10 @@
    width: 350px ;
 }
 
+button.example-custom-date-class {
+  background: #5CF082;
+  border-radius: 100%;
+}
 
 .line-grad {
     position: relative;
