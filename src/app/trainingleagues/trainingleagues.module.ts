@@ -12,6 +12,8 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { PostulationHomeComponent } from './postulation-home/postulation-home.component';
 import { ResgisterFormComponent } from './resgister-form/resgister-form.component';
 import { MatNativeDateModule } from "@angular/material/core";
+import { DetailedChallengeInformationComponent } from './detailed-challenge-information/detailed-challenge-information.component';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { MatNativeDateModule } from "@angular/material/core";
     ListTrainigLeaguesComponent,
     PostulationHomeComponent,
     ResgisterFormComponent,
+    DetailedChallengeInformationComponent
   ],
   imports: [
     CommonModule,
