@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
@@ -15,6 +17,7 @@ import { TrainingleaguesModule } from "./trainingleagues/trainingleagues.module"
     AppRoutingModule,
     AuthenticationModule,
     TrainingleaguesModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

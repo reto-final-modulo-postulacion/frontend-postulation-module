@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { TrainingLeague } from "../interfaces/trainingLeague";
+import { TrainingLeague } from "../../interfaces/trainingLeague";
 
 @Injectable({
   providedIn: 'root'
