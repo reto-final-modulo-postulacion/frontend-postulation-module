@@ -9,7 +9,7 @@ const routes: Routes = [
 		path: "",
 		children: [
 			{ path: "home", component: PostulationHomeComponent },
-			{ path: "registro-postulation", component: ResgisterFormComponent}
+			{ path: "registro-postulation", component: ResgisterFormComponent }
 		],
 	},
 	{ path: "**", redirectTo: "home" },

@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 export class ResgisterFormComponent implements OnInit {
 
   formRegisterLigue = new FormGroup({
-    name: new FormControl('')
+    name: new FormControl(''),
   })
 
   constructor(

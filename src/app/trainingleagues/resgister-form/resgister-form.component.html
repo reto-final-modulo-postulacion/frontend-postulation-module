@@ -7,21 +7,18 @@
                     Nombre</label>
                 <input type="text" id="first_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="John" required
-                    maxlength="50"
-                    formControlName="name">
+                    placeholder="John" required maxlength="50" formControlName="name">
             </div>
             <div>
-                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido</label>
+                <label for="last_name"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido</label>
                 <input type="text" id="last_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Doe" required
-                    formControlName="lastName"
-                    maxlength="50">
+                    placeholder="Doe" required formControlName="lastName" maxlength="50">
             </div>
             <div>
-                <label for="typeDocument"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tipo de Documento</label>
+                <label for="typeDocument" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tipo
+                    de Documento</label>
                 <select name="typeDocument" id="typeDocument"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Flowbite" required>
@@ -33,17 +30,28 @@
                 </select>
             </div>
             <div>
-                <label for="numberDocument" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Numero del Documento</label>
+                <label for="numberDocument"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Numero del Documento</label>
                 <input type="tel" id="numberDocument"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                    placeholder="12345678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
             </div>
             <div>
-                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Website
-                    URL</label>
-                <input type="url" id="website"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="flowbite.com" required>
+                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fecha de
+                    Nacimiento</label>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Seleccione fecha</mat-label>
+                    <input matInput [matDatepicker]="picker"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
             </div>
             <div>
                 <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Unique
