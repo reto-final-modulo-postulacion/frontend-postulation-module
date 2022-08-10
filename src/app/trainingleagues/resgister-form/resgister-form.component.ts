@@ -11,7 +11,6 @@ import { ServiceApiCountriesService } from '../service/service-api-countries/ser
 })
 export class ResgisterFormComponent implements OnInit {
   postulant: any;
-  dateEnty: string = "";
   listNameCountries: any[] = [];
 
   formRegisterLigue = new FormGroup({
