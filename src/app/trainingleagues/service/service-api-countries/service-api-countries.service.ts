@@ -9,7 +9,7 @@ import { Countrie } from '../../interfaces/countries';
 export class ServiceApiCountriesService {
 
   private tokenApi: string = 'https://www.universal-tutorial.com/api/getaccesstoken';
-  private countriesApiList: string = 'https://www.universal-tutorial.com/api/countries/';
+  private countriesApiList: string = 'https://www.universal-tutorial.com/api';
 
   httOptions = {
     headers: new HttpHeaders({
@@ -25,13 +25,33 @@ export class ServiceApiCountriesService {
 
   getAllCountries(token: string): Observable<any[]> {
     return this.http
-      .get<any[]>(this.countriesApiList, {
+      .get<any[]>(`${this.countriesApiList}/countries`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Accept": "application/json"
         }
       })
   }
+  getAllStatesOfCountry(token: string, countries: string): Observable<any[]> {
+    return this.http
+      .get<any[]>(`${this.countriesApiList}/states/${countries}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
+        }
+      })
+  }
+
+  getAllCitiesOfState(token: string, states: string): Observable<any[]> {
+    return this.http
+      .get<any[]>(`${this.countriesApiList}/cities/${states}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
+        }
+      })
+  }
+
 
   getToken(): Observable<any> {
     return this.http.get<any>(this.tokenApi, this.httOptions)

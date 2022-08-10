@@ -2,23 +2,23 @@
     <h1 class="block mb-2 text-lg font-medium  dark:text-gray-300 text-center">
         Liga de Entrenamiento ??
     </h1>
-    <form [formGroup]="formRegisterLigue">
+    <form [formGroup]="formRegisterLigue" (ngSubmit)="onSubmit(formRegisterLigue.value)">
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
             <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Nombre
                 </label>
                 <input type="text" id="first_name"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="John" maxlength="50" [value]= "postulant.fullName.name" required>
+                placeholder="John" maxlength="50" [value]= "postulant.fullName.name" formControlName="name"  required>
             </div>
             <div>
-                <label for="last_name"
+                <label for="lastname"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Apellido
                 </label>
-                <input type="text" id="last_name"
+                <input type="text" id="lastname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Doe" maxlength="50" [value]="postulant.fullName.lastname" required>
+                    placeholder="Doe" maxlength="50" [value]="postulant.fullName.lastname" formControlName="lastname" required>
             </div>
             <div>
                 <label for="typeDocument" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -175,7 +175,7 @@
                     Pais donde se Postula</label>
                 <select name="countryApplicant" id="countryApplicant"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Flowbite" required>
+                    placeholder="Flowbite" formControlName="country" required>
                 <option selected disabled  *ngIf='postulant.country == ""'>Seleccione el Pais</option>
                     <option selected disabled  *ngIf='postulant.country !== ""'>{{postulant.country}}</option>
                     <option *ngFor="let country of listNameCountries" value="{{country.name}}">{{country.name}}</option>
@@ -192,10 +192,7 @@
                     required>
                     <option selected disabled *ngIf='postulant.department == ""'>Seleccione un Departamento</option>
                     <option selected disabled *ngIf='postulant.department !== ""'>{{postulant.department}}</option>
-                    <option value="amazonas">Amazonas</option>
-                    <option value="antioquía">Antioquía</option>
-                    <option value="arauca">Arauca</option>
-                    <option value="atlántico">Atlántico</option>
+                    <option *ngFor="let state of listNameStates" value="{{state.name}}">{{state.name}}</option>
                 </select>
             </div>
 
@@ -207,10 +204,7 @@
                     required>
                     <option selected disabled *ngIf='postulant.municipality == ""'>Seleccione un Municipio</option>
                     <option selected disabled *ngIf='postulant.municipality !== ""'>{{postulant.municipality}}</option>
-                    <option value="amazonas">Amazonas</option>
-                    <option value="antioquía">Antioquía</option>
-                    <option value="arauca">Arauca</option>
-                    <option value="atlántico">Atlántico</option>
+                    <option *ngFor="let cyti of listNameStates" value="{{cyti.name}}">{{cyti.name}}</option>
                 </select>
             </div>
         </div>
@@ -283,9 +277,8 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="" maxlength="500" [value]="postulant.linkedin"  required>
         </div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
     </form>
-    <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
 
     <button type="button"
         class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 my-3 mx-3 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
