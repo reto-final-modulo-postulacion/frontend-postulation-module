@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
 import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
+import { Postulant } from '../interfaces/postulant';
 
 @Component({
   selector: 'app-resgister-form',
@@ -10,25 +11,95 @@ import { ServiceApiCountriesService } from '../service/service-api-countries/ser
   styleUrls: ['./resgister-form.component.css']
 })
 export class ResgisterFormComponent implements OnInit {
-  postulant: any;
-  dateEnty: string = "";
+  postulant: Postulant={
+  		"id": "",
+		"fullName": {
+			name: "",
+			lastname: ""
+		},
+		"documentUser": {
+			type: "",
+			value: ""
+		},
+		"dateOfBirth": "",
+		"nationality": "",
+		"urlPhoto": "",
+		"phone": {
+			"phoneCode": "",
+			"phoneNumber": ""
+		},
+		"email": "",
+		"companyName": "",
+		"workExperience": "",
+		"currentOccupation": "",
+		"educationalLevel": "",
+		"country": "",
+		"department": "",
+		"municipality": "",
+		"address": "",
+		"englishLevel": "",
+		"isStudying": "",
+		"aboutYou": "",
+		"urlCV": "",
+		"linkedin": "",
+		"sessionOn": true,
+		"challenge": {
+			"idChallenge": "",
+			"registrationDate": "",
+			"initialDate": "",
+			"finalDate": "",
+			"language": ""
+		},
+		"idTraining": ""
+  }
   listNameCountries: any[] = [];
+  listNameStates: any[] = [];
+  listNameCities: any[] = [];
+  country:string = "";
+  state: string = "";
 
-  formRegisterLigue = new FormGroup({
-    name: new FormControl(''),
-    lastName: new FormControl(''),
-  })
+   formRegisterLigue = new FormGroup({
+     name: new FormControl(''),
+     lastname: new FormControl(''),
+     country: new FormControl(''),
+     state: new FormControl(''),
+   })
 
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService
-  ) { }
+  ) {
+
+    // this.formRegisterLigue = this.formBuilder.group({
+    //   name: '',
+    //   lastname: ''
+    // })
+
+
+  }
 
   ngOnInit(): void {
-  
     this.obtenerPaises();
     this.getPostulantById();
+    this.getAllStatesOfCountry();
+    this.getAllCitiesOfCountry();
+
+
+    this.formRegisterLigue.valueChanges.subscribe((value) =>{
+      console.log(value);
+
+      this.country = value.country!;
+      this.state = value.state!;
+      this.getAllStatesOfCountry();
+      // this.getAllCitiesOfCountry();
+      // this.listNameCities = value.state!;
+    });
+  }
+
+  onSubmit(customerData: any){
+    this.formRegisterLigue.reset();
+    console.warn('Your order has been submitted', customerData);
   }
 
   getPostulantById() {
@@ -46,19 +117,45 @@ export class ResgisterFormComponent implements OnInit {
     // }
   }
 
-
-
-  obtenerPaises() {
-    let token = JSON.parse(localStorage.getItem("token")!);
+  async obtenerPaises() {
+    let token = await JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
       .getAllCountries(token)
-      .subscribe((listCountries: any) => {      
+      .subscribe((listCountries: any) => {
         this.listNameCountries = listCountries.map((auxCountries: any) => {
           return {
-            name: auxCountries.country_name,
+            name: auxCountries.country_name
           }
         });
-      });      
-      console.log(this.listNameCountries)
+      });
   }
+
+  getAllStatesOfCountry(){
+    console.log(this.formRegisterLigue.value.country)
+    let token = JSON.parse(localStorage.getItem("token")!);
+    this.countriesApiService
+      .getAllStatesOfCountry(token,this.country)
+      .subscribe((listStates: any) => {
+        this.listNameStates = listStates.map((auxStates: any) => {
+          return {
+            name: auxStates.state_name
+          }
+        });
+      });
+  }
+
+  getAllCitiesOfCountry(){
+  let token = JSON.parse(localStorage.getItem("token")!);
+    this.countriesApiService
+      .getAllCitiesOfState(token,this.state)
+      .subscribe((listCities: any) => {
+        this.listNameCities = listCities.map((auxCities: any) => {
+          return {
+            name: auxCities.city_name
+          }
+        });
+      });
+  }
+
+
 }

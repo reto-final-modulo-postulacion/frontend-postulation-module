@@ -2,23 +2,25 @@
     <h1 class="block mb-2 text-lg font-medium  dark:text-gray-300 text-center">
         Liga de Entrenamiento ??
     </h1>
-    <form [formGroup]="formRegisterLigue">
+    <form [formGroup]="formRegisterLigue" (ngSubmit)="onSubmit(formRegisterLigue.value)">
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
             <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Nombre
                 </label>
                 <input type="text" id="first_name"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="John" required maxlength="50" >
+    placeholder="John" maxlength="50" [value]= "postulant.fullName.name" formControlName="name"  required>
+
             </div>
             <div>
-                <label for="last_name"
+                <label for="lastname"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Apellido
                 </label>
-                <input type="text" id="last_name"
+                <input type="text" id="lastname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Doe" required maxlength="50" >
+
+                    placeholder="Doe" maxlength="50" [value]="postulant.fullName.lastname" formControlName="lastname" required>
             </div>
             <div>
                 <label for="typeDocument" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -44,7 +46,7 @@
                 </label>
                 <input type="number" id="numberDocument"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="1017275869" pattern="[0-9]{8,10}" value="{{postulant.documentUser.value}}" required>
+                    placeholder="1017275869" pattern="[0-9]{8,10}" [value]="postulant.documentUser.value" required>
             </div>
 
             <div>
@@ -84,10 +86,10 @@
                 <div class= "flex">
                     <input type="tel" id="numberPhoneCode"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="+57" value="57" pattern="[0-9]{3}" required>
+                    placeholder="+57" [value]="postulant.phone.phoneCode" pattern="[0-9]{3}" required>
                     <input type="tel" id="numberPhone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="3215801523" pattern="[0-9]{10}" value="{{postulant.phone}}"required>
+                    placeholder="3215801523" pattern="[0-9]{10}" [value]="postulant.phone.phoneNumber"required>
 
                 </div>
             </div>
@@ -98,7 +100,10 @@
                 <select name="nacionalidad" id="nacionalidad"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Flowbite" required>
-                    <option selected disabled>
+                     <option selected disabled *ngIf='postulant.nationality == ""'>
+                       Seleccione la nacionalidad
+                    </option>
+                    <option selected disabled *ngIf='postulant.nationality !== ""'>
                         {{postulant.nationality}}
                     </option>
                     <option *ngFor="let country of listNameCountries" value="{{country.name}}">{{ country.name }}</option>
@@ -124,7 +129,7 @@
                 </label>
                 <input type="text" id="enterPriceName"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Sofka Technologies" required formControlName="enterPriceName" maxlength="50" >
+                    placeholder="Sofka Technologies" required formControlName="enterPriceName" maxlength="50" [value]="postulant.companyName">
             </div>
 
             <div>
@@ -154,8 +159,8 @@
             <select class type="password" id="levelEducation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required>
-                <!-- <option selected disabled  *ngIf="postulant.educationalLevel == dateEnty">Seleccione Nivel de Estudio</option> -->
-                <option selected disabled >{{postulant.educationalLevel}}</option>
+                <option selected disabled  *ngIf='postulant.educationalLevel == ""'>Seleccione Nivel de Estudio</option>
+                <option selected disabled *ngIf='postulant.educationalLevel !== ""'>{{postulant.educationalLevel}}</option>
                 <option value="ninguno">Ninguno</option>
                 <option value="bachillerato">Bachillerato</option>
                 <option value="técnico">Técnico</option>
@@ -172,8 +177,9 @@
                     Pais donde se Postula</label>
                 <select name="countryApplicant" id="countryApplicant"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Flowbite" required>
-                    <option selected disabled>{{postulant.country}}</option>
+                    placeholder="Flowbite" formControlName="country" required>
+                <option selected disabled  *ngIf='postulant.country == ""'>Seleccione el Pais</option>
+                    <option selected disabled  *ngIf='postulant.country !== ""'>{{postulant.country}}</option>
                     <option *ngFor="let country of listNameCountries" value="{{country.name}}">{{country.name}}</option>
                 </select>
             </div>
@@ -186,11 +192,9 @@
                 <select name="department" id="department"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required>
-                    <option selected disabled>{{postulant.department}}</option>
-                    <option value="amazonas">Amazonas</option>
-                    <option value="antioquía">Antioquía</option>
-                    <option value="arauca">Arauca</option>
-                    <option value="atlántico">Atlántico</option>
+                    <option selected disabled *ngIf='postulant.department == ""'>Seleccione un Departamento</option>
+                    <option selected disabled *ngIf='postulant.department !== ""'>{{postulant.department}}</option>
+                    <option *ngFor="let state of listNameStates" value="{{state.name}}">{{state.name}}</option>
                 </select>
             </div>
 
@@ -200,11 +204,9 @@
                 <select name="municipality" id="municipality"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required>
-                    <option selected disabled>{{postulant.municipality}}</option>
-                    <option value="amazonas">Amazonas</option>
-                    <option value="antioquía">Antioquía</option>
-                    <option value="arauca">Arauca</option>
-                    <option value="atlántico">Atlántico</option>
+                    <option selected disabled *ngIf='postulant.municipality == ""'>Seleccione un Municipio</option>
+                    <option selected disabled *ngIf='postulant.municipality !== ""'>{{postulant.municipality}}</option>
+                    <option *ngFor="let cyti of listNameStates" value="{{cyti.name}}">{{cyti.name}}</option>
                 </select>
             </div>
         </div>
@@ -226,7 +228,8 @@
                 <select name="levelEnglish" id="levelEnglish"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required>
-                    <option selected disabled>{{postulant.englishLevel}}</option>
+                    <option selected disabled *ngIf='postulant.englishLevel == ""'>Seleccione el Nivel de Ingles</option>
+                    <option selected disabled *ngIf='postulant.englishLevel == ""'>{{postulant.englishLevel}}</option>
                     <option value="a1">A1</option>
                     <option value="a2">A2</option>
                     <option value="b1">B1</option>
@@ -242,6 +245,7 @@
                 <select name="study" id="study"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required>
+                    <option selected disabled *ngIf='postulant.englishLevel == ""'>{{postulant.englishLevel}}</option>
                     <option selected disabled>{{postulant.isStudying}}</option>
                     <option value="si">Si</option>
                     <option value="no">No</option>
@@ -254,7 +258,7 @@
                 Cuentanos Sobre Ti</label>
             <textarea id="message" rows="4"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Soy un profesional del area de la informatica...." required maxlength="500"></textarea>
+                placeholder="Soy un profesional del area de la informatica...." required maxlength="500" [value]="postulant.aboutYou" ></textarea>
         </div>
 
         <div class="mb-6">
@@ -275,9 +279,8 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="" maxlength="500" [value]="postulant.linkedin"  required>
         </div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
     </form>
-    <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
 
     <button type="button"
         class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 my-3 mx-3 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
