@@ -9,6 +9,7 @@ import { PostulantApiService } from '../service/postulant-api/postulant-api.serv
 })
 export class ResgisterFormComponent implements OnInit {
   postulant: any;
+  dateEnty: string= "";
 
   formRegisterLigue = new FormGroup({
     name: new FormControl(''),
@@ -37,7 +38,7 @@ export class ResgisterFormComponent implements OnInit {
       ]
     })
 
-    this.getPostulantById;
+    this.getPostulantById();
   }
 
   getPostulantById(){
