@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { TrainingLeague } from "../../interfaces/trainingLeague";
+import { Postulant } from "../../interfaces/postulant";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TrainingLeagueApiService {
-  private	trainingLeagueURL = "api/trainingleague/"
+export class PostulantApiService {
+  private postulandURL = "api/postulant";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -17,15 +17,16 @@ export class TrainingLeagueApiService {
 
   constructor(private http: HttpClient) {}
 
-	/** GET cards from the server */
-	getTrainingLeague(): Observable<TrainingLeague[]> {
-		return this.http.get<TrainingLeague[]>(this.trainingLeagueURL).pipe(
-			tap((_) => console.log("fetched trainingleague")),
-			catchError(this.handleError<TrainingLeague[]>("getTrainingLeague", [])),
+	/** GET Postuland from the server */
+	getPostulantById(id: string): Observable<Postulant> {
+		const url = `${this.postulandURL}/${id}`;
+		return this.http.get<Postulant>(url).pipe(
+			tap((res) => console.log(`fetched Postulant id: ${id}`, res)),
+			catchError(this.handleError<Postulant>(`getPostulant id: ${id} `)),
 		);
 	}
 
-	/**
+  /**
    * Handle Http operation that failed.
    * Let the app continue.
    *

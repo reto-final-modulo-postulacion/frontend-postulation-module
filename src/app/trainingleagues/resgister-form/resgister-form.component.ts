@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
 import { Countrie } from '../interfaces/countries';
-import { ServiceApiCountriesService } from '../service/treining-league-api-service/service-api-countries.service';
-
+import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
 
 @Component({
   selector: 'app-resgister-form',
@@ -10,6 +10,8 @@ import { ServiceApiCountriesService } from '../service/treining-league-api-servi
   styleUrls: ['./resgister-form.component.css']
 })
 export class ResgisterFormComponent implements OnInit {
+  postulant: any;
+  dateEnty: string= "";
 
   listNameCountries: any[] = [];
 
@@ -20,6 +22,7 @@ export class ResgisterFormComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService
   ) { }
 
@@ -29,7 +32,7 @@ export class ResgisterFormComponent implements OnInit {
         '',
         [
           Validators.required,
-          
+
         ]
       ],
       lastName:[
@@ -40,20 +43,38 @@ export class ResgisterFormComponent implements OnInit {
       ]
     })
 
+    this.getPostulantById();
+
     this.getAllCountriesApi();
   }
+
+  getPostulantById(){
+    var userId = JSON.parse(localStorage.getItem("user") || "").uid!;
+
+    this.postulantApiService.getPostulantById(userId).subscribe(
+			(user) => this.postulant = user
+    );
+
+		// if (userId !== userId) {
+		// 	this.player.playerId = userId;
+		// 	this.player.email = userEmail;
+  //
+		// 	this.playerAPIService.addPlayer(this.player).subscribe();
+		// }
+  }
+
   getAllCountriesApi(){
     this.countriesApiService
     .getAllCountries()
     .subscribe((listCountries :any) => {
       this.listNameCountries = listCountries.map((auxCountries :any) => {
         console.log(auxCountries);
-        
+
         return {
           name: auxCountries.name.common,
           code: auxCountries.cioc
         }
-      });  
+      });
     })
   }
 }
