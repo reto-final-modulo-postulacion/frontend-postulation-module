@@ -59,26 +59,24 @@ export class ResgisterFormComponent implements OnInit {
   country:string = "";
   state: string = "";
 
-  formRegisterLigue : FormGroup;
+  formRegisterLigue = new FormGroup({
+    name: new FormControl(''),
+    lastname: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+  })
 
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService
-  ) {
-    this.formRegisterLigue = new FormGroup({
-      name: new FormControl(),
-      lastname: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-    })
-  }
+  ) {  }
 
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-    this.getAllStatesOfCountry();
-    this.getAllCitiesOfCountry();
+    // this.getAllStatesOfCountry();
+    // this.getAllCitiesOfCountry();
 
 
     this.formRegisterLigue.valueChanges.subscribe((value) =>{
@@ -86,20 +84,24 @@ export class ResgisterFormComponent implements OnInit {
 
       this.country = value.country!;
       this.state = value.state!;
-      this.getAllStatesOfCountry();
+      // this.getAllStatesOfCountry();
       // this.getAllCitiesOfCountry();
       // this.listNameCities = value.state!;
     });
 
      this.formRegisterLigue = this.formBuilder.group({
-      name: [null],
+      name: '',
       lastname: '',
       country: '',
       state: ''
     })
 
-    this.formBuilder
+  }
 
+
+  filterConuntryToCities(staty:any) {
+    console.log(staty);
+    
   }
 
   onSubmit(customerData: any){
@@ -108,12 +110,12 @@ export class ResgisterFormComponent implements OnInit {
   }
 
   getPostulantById() {
-    var userId = JSON.parse(localStorage.getItem("user") || "").uid!;
+    let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
 
     this.postulantApiService
     .getPostulantById(userId)
     .subscribe(
-      (user) => this.postulant = user
+      (user) => this.postulant = (user) ? user : this.postulant
     );
   }
 
@@ -130,7 +132,7 @@ export class ResgisterFormComponent implements OnInit {
       });
   }
 
-  getAllStatesOfCountry(){
+  getAllStatesOfCountry(state:any){
     console.log(this.formRegisterLigue.value.country)
     let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
