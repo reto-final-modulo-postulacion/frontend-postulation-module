@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Countrie } from '../interfaces/countries';
+import { ServiceApiCountriesService } from '../service/treining-league-api-service/service-api-countries.service';
 
 
 @Component({
@@ -9,6 +11,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class ResgisterFormComponent implements OnInit {
 
+  listNameCountries: any[] = [];
+
   formRegisterLigue = new FormGroup({
     name: new FormControl(''),
     lastName: new FormControl(''),
@@ -16,6 +20,7 @@ export class ResgisterFormComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    private countriesApiService: ServiceApiCountriesService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +39,21 @@ export class ResgisterFormComponent implements OnInit {
         ]
       ]
     })
-  }
 
+    this.getAllCountriesApi();
+  }
+  getAllCountriesApi(){
+    this.countriesApiService
+    .getAllCountries()
+    .subscribe((listCountries :any) => {
+      this.listNameCountries = listCountries.map((auxCountries :any) => {
+        console.log(auxCountries);
+        
+        return {
+          name: auxCountries.name.common,
+          code: auxCountries.cioc
+        }
+      });  
+    })
+  }
 }
