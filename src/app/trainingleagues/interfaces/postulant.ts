@@ -1,14 +1,22 @@
 export interface Postulant {
 		"id": "",
+		"fullName": {
+			name: "",
+			lastname: ""
+		},
 		"documentUser": {
-			"type": "",
-			"value": ""
+			type: "",
+			value: ""
 		},
 		"dateOfBirth": "",
 		"nationality": "",
 		"urlPhoto": "",
-		"phone": "",
+		"phone": {
+			"phoneCode": "",
+			"phoneNumber": ""
+		},
 		"email": "",
+		"companyName": "",
 		"workExperience": "",
 		"currentOccupation": "",
 		"educationalLevel": "",
@@ -17,7 +25,7 @@ export interface Postulant {
 		"municipality": "",
 		"address": "",
 		"englishLevel": "",
-		"isStudying": false,
+		"isStudying": "",
 		"aboutYou": "",
 		"urlCV": "",
 		"linkedin": "",
