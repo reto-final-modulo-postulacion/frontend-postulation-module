@@ -4,6 +4,7 @@ import { PostulantApiService } from '../service/postulant-api/postulant-api.serv
 import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
 import { Postulant } from '../interfaces/postulant';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-resgister-form',
@@ -58,25 +59,19 @@ export class ResgisterFormComponent implements OnInit {
   country:string = "";
   state: string = "";
 
-   formRegisterLigue = new FormGroup({
-     name: new FormControl(''),
-     lastname: new FormControl(''),
-     country: new FormControl(''),
-     state: new FormControl(''),
-   })
+  formRegisterLigue : FormGroup;
 
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService
   ) {
-
-    // this.formRegisterLigue = this.formBuilder.group({
-    //   name: '',
-    //   lastname: ''
-    // })
-
-
+    this.formRegisterLigue = new FormGroup({
+      name: new FormControl(),
+      lastname: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+    })
   }
 
   ngOnInit(): void {
@@ -95,6 +90,16 @@ export class ResgisterFormComponent implements OnInit {
       // this.getAllCitiesOfCountry();
       // this.listNameCities = value.state!;
     });
+
+     this.formRegisterLigue = this.formBuilder.group({
+      name: [null],
+      lastname: '',
+      country: '',
+      state: ''
+    })
+
+    this.formBuilder
+
   }
 
   onSubmit(customerData: any){
@@ -105,16 +110,11 @@ export class ResgisterFormComponent implements OnInit {
   getPostulantById() {
     var userId = JSON.parse(localStorage.getItem("user") || "").uid!;
 
-    this.postulantApiService.getPostulantById(userId).subscribe(
+    this.postulantApiService
+    .getPostulantById(userId)
+    .subscribe(
       (user) => this.postulant = user
     );
-
-    // if (userId !== userId) {
-    // 	this.player.playerId = userId;
-    // 	this.player.email = userEmail;
-    //
-    // 	this.playerAPIService.addPlayer(this.player).subscribe();
-    // }
   }
 
   async obtenerPaises() {
