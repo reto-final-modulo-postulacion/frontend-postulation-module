@@ -192,10 +192,7 @@
                     required>
                     <option selected disabled *ngIf='postulant.department == ""'>Seleccione un Departamento</option>
                     <option selected disabled *ngIf='postulant.department !== ""'>{{postulant.department}}</option>
-                    <option value="amazonas">Amazonas</option>
-                    <option value="antioquía">Antioquía</option>
-                    <option value="arauca">Arauca</option>
-                    <option value="atlántico">Atlántico</option>
+                    <option *ngFor="let state of listNameStates" value="{{state.name}}">{{state.name}}</option>
                 </select>
             </div>
 
@@ -207,6 +204,7 @@
                     required>
                     <option selected disabled *ngIf='postulant.municipality == ""'>Seleccione un Municipio</option>
                     <option selected disabled *ngIf='postulant.municipality !== ""'>{{postulant.municipality}}</option>
+                    <option *ngFor="let cyti of listNameStates" value="{{cyti.name}}">{{cyti.name}}</option>
                     <option value="amazonas">Amazonas</option>
                     <option value="antioquía">Antioquía</option>
                     <option value="arauca">Arauca</option>
