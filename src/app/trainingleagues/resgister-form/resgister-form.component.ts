@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
+import { Countrie } from '../interfaces/countries';
+import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
 
 @Component({
   selector: 'app-resgister-form',
@@ -11,6 +13,8 @@ export class ResgisterFormComponent implements OnInit {
   postulant: any;
   dateEnty: string= "";
 
+  listNameCountries: any[] = [];
+
   formRegisterLigue = new FormGroup({
     name: new FormControl(''),
     lastName: new FormControl(''),
@@ -18,7 +22,8 @@ export class ResgisterFormComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private postulantApiService: PostulantApiService
+    private postulantApiService: PostulantApiService,
+    private countriesApiService: ServiceApiCountriesService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +44,8 @@ export class ResgisterFormComponent implements OnInit {
     })
 
     this.getPostulantById();
+
+    this.getAllCountriesApi();
   }
 
   getPostulantById(){
@@ -56,4 +63,18 @@ export class ResgisterFormComponent implements OnInit {
 		// }
   }
 
+  getAllCountriesApi(){
+    this.countriesApiService
+    .getAllCountries()
+    .subscribe((listCountries :any) => {
+      this.listNameCountries = listCountries.map((auxCountries :any) => {
+        console.log(auxCountries);
+
+        return {
+          name: auxCountries.name.common,
+          code: auxCountries.cioc
+        }
+      });
+    })
+  }
 }

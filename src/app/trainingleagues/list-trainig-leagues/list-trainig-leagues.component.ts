@@ -10,7 +10,9 @@ import { TrainingLeagueApiService } from "../service/treining-league-api-service
 export class ListTrainigLeaguesComponent implements OnInit {
   trainingLeagues: TrainingLeague[]=[];
 
-	constructor(private trainingLeagueApiService: TrainingLeagueApiService) {}
+	constructor(private trainingLeagueApiService: TrainingLeagueApiService) {
+
+	}
 
 	ngOnInit(): void {
 	  this.addTrainingLeagues();
