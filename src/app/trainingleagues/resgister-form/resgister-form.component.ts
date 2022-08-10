@@ -11,8 +11,7 @@ import { ServiceApiCountriesService } from '../service/service-api-countries/ser
 })
 export class ResgisterFormComponent implements OnInit {
   postulant: any;
-  dateEnty: string= "";
-
+  dateEnty: string = "";
   listNameCountries: any[] = [];
 
   formRegisterLigue = new FormGroup({
@@ -27,54 +26,39 @@ export class ResgisterFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.formRegisterLigue = this.formBuilder.group({
-      name: [
-        '',
-        [
-          Validators.required,
-
-        ]
-      ],
-      lastName:[
-        '',
-        [
-          Validators.required,
-        ]
-      ]
-    })
-
+  
+    this.obtenerPaises();
     this.getPostulantById();
-
-    this.getAllCountriesApi();
   }
 
-  getPostulantById(){
+  getPostulantById() {
     var userId = JSON.parse(localStorage.getItem("user") || "").uid!;
 
     this.postulantApiService.getPostulantById(userId).subscribe(
-			(user) => this.postulant = user
+      (user) => this.postulant = user
     );
 
-		// if (userId !== userId) {
-		// 	this.player.playerId = userId;
-		// 	this.player.email = userEmail;
-  //
-		// 	this.playerAPIService.addPlayer(this.player).subscribe();
-		// }
+    // if (userId !== userId) {
+    // 	this.player.playerId = userId;
+    // 	this.player.email = userEmail;
+    //
+    // 	this.playerAPIService.addPlayer(this.player).subscribe();
+    // }
   }
 
-  getAllCountriesApi(){
-    this.countriesApiService
-    .getAllCountries()
-    .subscribe((listCountries :any) => {
-      this.listNameCountries = listCountries.map((auxCountries :any) => {
-        console.log(auxCountries);
 
-        return {
-          name: auxCountries.name.common,
-          code: auxCountries.cioc
-        }
-      });
-    })
+
+  obtenerPaises() {
+    let token = JSON.parse(localStorage.getItem("token")!);
+    this.countriesApiService
+      .getAllCountries(token)
+      .subscribe((listCountries: any) => {      
+        this.listNameCountries = listCountries.map((auxCountries: any) => {
+          return {
+            name: auxCountries.country_name,
+          }
+        });
+      });      
+      console.log(this.listNameCountries)
   }
 }

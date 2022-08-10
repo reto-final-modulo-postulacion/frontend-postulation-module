@@ -62,7 +62,7 @@ export class AuthService {
 				}).then(result => {
 					if (result.isConfirmed)
 						this.router.navigate(["auth/login"]);
-
+						
 					this.router.navigate(["auth/login"]);
 				});
 			})
