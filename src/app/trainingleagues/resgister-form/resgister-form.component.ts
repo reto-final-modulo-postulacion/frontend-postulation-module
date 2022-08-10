@@ -55,23 +55,51 @@ export class ResgisterFormComponent implements OnInit {
   listNameCountries: any[] = [];
   listNameStates: any[] = [];
   listNameCities: any[] = [];
+  country:string = "";
+  state: string = "";
 
-  formRegisterLigue = new FormGroup({
-    name: new FormControl(''),
-    lastName: new FormControl(''),
-  })
+   formRegisterLigue = new FormGroup({
+     name: new FormControl(''),
+     lastname: new FormControl(''),
+     country: new FormControl(''),
+     state: new FormControl(''),
+   })
 
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService
-  ) { }
+  ) {
+
+    // this.formRegisterLigue = this.formBuilder.group({
+    //   name: '',
+    //   lastname: ''
+    // })
+
+
+  }
 
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
     this.getAllStatesOfCountry();
     this.getAllCitiesOfCountry();
+
+
+    this.formRegisterLigue.valueChanges.subscribe((value) =>{
+      console.log(value);
+
+      this.country = value.country!;
+      this.state = value.state!;
+      this.getAllStatesOfCountry();
+      // this.getAllCitiesOfCountry();
+      // this.listNameCities = value.state!;
+    });
+  }
+
+  onSubmit(customerData: any){
+    this.formRegisterLigue.reset();
+    console.warn('Your order has been submitted', customerData);
   }
 
   getPostulantById() {
@@ -103,9 +131,10 @@ export class ResgisterFormComponent implements OnInit {
   }
 
   getAllStatesOfCountry(){
-  let token = JSON.parse(localStorage.getItem("token")!);
+    console.log(this.formRegisterLigue.value.country)
+    let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
-      .getAllStatesOfCountry(token,"Colombia")
+      .getAllStatesOfCountry(token,this.country)
       .subscribe((listStates: any) => {
         this.listNameStates = listStates.map((auxStates: any) => {
           return {
@@ -118,14 +147,13 @@ export class ResgisterFormComponent implements OnInit {
   getAllCitiesOfCountry(){
   let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
-      .getAllCitiesOfState(token,"Antioquia")
+      .getAllCitiesOfState(token,this.state)
       .subscribe((listCities: any) => {
         this.listNameCities = listCities.map((auxCities: any) => {
           return {
             name: auxCities.city_name
           }
         });
-          console.log(listCities);
       });
   }
 
