@@ -106,7 +106,7 @@ export class ResgisterFormComponent implements OnInit {
     var userId = JSON.parse(localStorage.getItem("user") || "").uid!;
 
     this.postulantApiService.getPostulantById(userId).subscribe(
-      (user) => this.postulant = user
+      (user) =>  this.postulant = (user)? user : this.postulant
     );
 
     // if (userId !== userId) {
