@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario-reto',
@@ -8,11 +8,22 @@ import { FormBuilder } from '@angular/forms';
 })
 export class FormularioRetoComponent implements OnInit {
 
+  formLenguaje = new FormGroup({
+    lenguajeUtiliza: new FormControl(''),
+  })
+
   constructor(
     private formBulder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+
+    this.formLenguaje = this.formBulder.group({
+      lenguajeUtiliza: ['', [Validators.required]]
+    });
   }
 
+  onSubmit(): void {
+    console.log(this.formLenguaje.value);
+  }
 }

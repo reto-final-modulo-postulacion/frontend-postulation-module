@@ -2,7 +2,7 @@
     <h1 class="block mb-2 text-lg font-medium  dark:text-gray-300 text-center">
         Configuración del Reto Técnico
     </h1>
-    <form>
+    <form [formGroup]="formLenguaje" (ngSubmit)="onSubmit()">
         <div class="grid gap-6 mb-6 2">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -26,14 +26,14 @@
                 </label>
                 <select name="languaje" id="languaje"
                     class="bg-gray-51 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required>
+                    required formControlName="lenguajeUtiliza">
                     <option selected disabled>Seleccione Su lenguaje</option>
-                    <option value="si">JavaScript</option>
-                    <option value="no">TypeScript</option>
-                    <option value="no">Java</option>
-                    <option value="no">Python</option>
-                    <option value="no">C#</option>
-                    <option value="no">GO</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="TypeScript">TypeScript</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="C#">C#</option>
+                    <option value="GO">GO</option>
                 </select>
             </div>
 
@@ -63,5 +63,3 @@
 
 
 </div>
-
-<!-- [formGroup]="formChallenge" (ngSubmit)="onSubmit(formChallenge.value)" -->
