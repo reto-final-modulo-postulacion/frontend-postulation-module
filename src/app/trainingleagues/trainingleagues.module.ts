@@ -15,6 +15,7 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { PostulationHomeComponent } from './postulation-home/postulation-home.component';
 import { ResgisterFormComponent } from './resgister-form/resgister-form.component';
 import { DetailedChallengeInformationComponent } from './detailed-challenge-information/detailed-challenge-information.component';
+import { FormularioRetoComponent } from './formulario-reto/formulario-reto.component';
 
 
 
@@ -26,6 +27,7 @@ import { DetailedChallengeInformationComponent } from './detailed-challenge-info
     PostulationHomeComponent,
     ResgisterFormComponent,
     DetailedChallengeInformationComponent,
+    FormularioRetoComponent,
   ],
   imports: [
     CommonModule,

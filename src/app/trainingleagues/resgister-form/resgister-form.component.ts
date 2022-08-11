@@ -85,7 +85,9 @@ export class ResgisterFormComponent implements OnInit {
 
 
 
-    this.formRegisterLigue.valueChanges.subscribe((value) => {
+    this.formRegisterLigue
+    .valueChanges
+    .subscribe((value) => {
       console.log(value);
 
       this.country = value.country!;
@@ -102,7 +104,7 @@ export class ResgisterFormComponent implements OnInit {
   }
 
 
-
+// Funcion que llama 
   
 
   onSubmit(customerData: any) {
