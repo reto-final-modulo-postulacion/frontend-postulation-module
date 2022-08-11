@@ -109,9 +109,7 @@ export class ResgisterFormComponent implements OnInit {
     // this.getAllStatesOfCountry();
     // this.getAllCitiesOfCountry();
 
-
   }
-
 
   updatePostulant() {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
@@ -162,7 +160,6 @@ export class ResgisterFormComponent implements OnInit {
 
     this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
   }
-
 
   onSubmit(customerData: any) {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;

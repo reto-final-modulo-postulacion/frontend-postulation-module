@@ -5,6 +5,7 @@ import { DetailedChallengeInformationComponent } from "./detailed-challenge-info
 
 import { PostulationHomeComponent } from "./postulation-home/postulation-home.component";
 import { ResgisterFormComponent } from './resgister-form/resgister-form.component';
+import { FormularioRetoComponent } from './formulario-reto/formulario-reto.component';
 
 const routes: Routes = [
 	{
@@ -12,7 +13,8 @@ const routes: Routes = [
 		children: [
 			{ path: "home", component: PostulationHomeComponent, canActivate: [GuardaAuthGuard] },
 			{ path: "registro-postulation", component: ResgisterFormComponent },
-			{ path: "detailed-challenge-information", component: DetailedChallengeInformationComponent }
+			{ path: "form-reto", component: FormularioRetoComponent},
+			{ path: "detailed-challenge-information", component: DetailedChallengeInformationComponent },
 		],
 	},
 	{ path: "**", redirectTo: "home" },
