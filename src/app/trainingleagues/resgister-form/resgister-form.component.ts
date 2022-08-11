@@ -58,7 +58,7 @@ export class ResgisterFormComponent implements OnInit {
   country: string = "";
   state: string = "";
   cities: string = "";
-
+  age: string = "23";
   formRegisterLigue: any;
 
 
@@ -110,14 +110,61 @@ export class ResgisterFormComponent implements OnInit {
 
 
   onSubmit(customerData: any) {
+    let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
+    let email = JSON.parse(localStorage.getItem("user") || "").email;
+    // let user = this.formRegisterLigue.value;
+    let user = customerData;
+    this.postulant={
+    "id": "",
+    "fullName": {
+      name: user.name,
+      lastname: user.lastname
+    },
+    "documentUser": {
+      type: user.documentType,
+      value: user.documentValue
+    },
+    "dateOfBirth": user.dateOfBirth,
+    "nationality": user.nationality,
+    "urlPhoto": user.urlPhoto,
+    "phone": {
+      "phoneCode": user.phoneCode,
+      "phoneNumber": user.phoneNumber
+    },
+    "email": email,
+    "companyName": user.companyName,
+    "workExperience": user.workExperience,
+    "currentOccupation": user.currentOccupation,
+    "educationalLevel": user.educationalLevel,
+    "country": user.country,
+    "department": user.state,
+    "municipality": user.cities,
+    "address": user.address,
+    "englishLevel": user.englishLevel,
+    "isStudying": user.isStudying,
+    "aboutYou": user.aboutYou,
+    "urlCV": user.urlCV,
+    "linkedin": user.linkedin,
+    "sessionOn": true,
+    "challenge": {
+      "idChallenge": "",
+      "registrationDate": "",
+      "initialDate": "",
+      "finalDate": "",
+      "language": ""
+    },
+    "idTraining": ""
+    }
+
+    this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
+    // console.log('Your order has been submitted', this.postulant);
     this.formRegisterLigue.reset();
-    console.warn('Your order has been submitted', customerData);
+    this.age="0";
   }
 
 
   getPostulantById() {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
-
     this.postulantApiService
       .getPostulantById(userId)
       .subscribe((user) => {
@@ -133,10 +180,11 @@ export class ResgisterFormComponent implements OnInit {
           documentType: this.postulant.documentUser.type || "",
           documentValue: this.postulant.documentUser.value || "",
           dateOfBirth: this.postulant.dateOfBirth || "",
+          age: this.age || "",
           nationality: this.postulant.nationality || "",
           urlPhoto: this.postulant.urlPhoto || "",
           phoneCode: this.postulant.phone.phoneCode || "",
-          phoneNumber: this.postulant.phone.phoneCode || "",
+          phoneNumber: this.postulant.phone.phoneNumber || "",
           companyName: this.postulant.companyName || "",
           workExperience: this.postulant.workExperience || "",
           currentOccupation: this.postulant.currentOccupation || "",
@@ -158,7 +206,6 @@ export class ResgisterFormComponent implements OnInit {
 
           // this.cities = value.cities!;
           if (this.country !== value.country) {
-            console.log("Hola",this.country);
             this.country = value.country!;
             this.getAllStatesOfCountry();
           }
