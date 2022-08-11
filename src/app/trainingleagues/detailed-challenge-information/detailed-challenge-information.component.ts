@@ -1,7 +1,8 @@
 import {
- Component, OnInit, ViewEncapsulation, Injectable
+  Component, OnInit, ViewEncapsulation, Injectable
 } from '@angular/core';
-import {DateAdapter} from  '@angular/material/core' ;
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 
 import {
   MatDateRangeSelectionStrategy,
@@ -12,7 +13,7 @@ import {
 
 @Injectable()
 export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
-  constructor(private _dateAdapter: DateAdapter<D>) {}
+  constructor(private _dateAdapter: DateAdapter<D>) { }
 
   selectionFinished(date: D | null): DateRange<D> {
     return this._createFiveDayRange(date);
@@ -50,31 +51,45 @@ export class DetailedChallengeInformationComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   dateDay: number;
+  
+  formFechas = new FormGroup({
+    inicio: new FormControl(''),
+    final: new FormControl(''),
+  })
 
-  constructor() {
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     const currentDay = new Date().getDate();
     this.dateDay = currentDay;
-    this.minDate = new Date(currentYear, currentMonth, currentDay+1);
-    this.maxDate = new Date(currentYear, currentMonth, currentDay+13);
-
+    this.minDate = new Date(currentYear, currentMonth, currentDay + 1);
+    this.maxDate = new Date(currentYear, currentMonth, currentDay + 13); 
   }
 
   ngOnInit(): void {
+    this.formFechas = this.formBuilder.group({
+      inicio: [
+        '',
+        [Validators.required]
+      ],
+      final: ['', [Validators.required] ]
+    });
   }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Only highligh dates inside the month view.
     if (view === 'month') {
       const date = cellDate.getDate();
-
       // Highlight the 1st and 20th day of each month.
-      return date === this.dateDay || date === this.dateDay+14 ? 'example-custom-date-class' : '';
+      return date === this.dateDay || date === this.dateDay + 14 ? 'example-custom-date-class' : '';
     }
-
-
     return '';
   };
 
+  diasAgendados() {
+    console.log(this.formFechas.value);
+    // console.log(this.formFechas.value.inicio);
+  }
 }
