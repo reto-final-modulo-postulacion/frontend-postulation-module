@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
 // import { Countrie } from '../interfaces/countries';
@@ -8,10 +8,29 @@ import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import 'moment/locale/ja';
+import 'moment/locale/fr';
+import 'moment/locale/es';
+
 @Component({
   selector: 'app-resgister-form',
   templateUrl: './resgister-form.component.html',
-  styleUrls: ['./resgister-form.component.css']
+  styleUrls: ['./resgister-form.component.css'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es-CO'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
 })
 export class ResgisterFormComponent implements OnInit {
   postulant: Postulant = {
@@ -98,6 +117,8 @@ export class ResgisterFormComponent implements OnInit {
     private countriesApiService: ServiceApiCountriesService,
     private router: Router,
     private storage: Storage,
+    private _dateAdapter: DateAdapter<any>,
+    @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
   }
 
@@ -105,12 +126,11 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-    this.calculateAge(this.postulant.dateOfBirth);
     // this.getAllStatesOfCountry();
     // this.getAllCitiesOfCountry();
-
+    // this.español();
   }
-
+/*
   updatePostulant() {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
     let email = JSON.parse(localStorage.getItem("user") || "").email;
@@ -160,6 +180,13 @@ export class ResgisterFormComponent implements OnInit {
 
     this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
   }
+*/
+
+  español() {
+    this._locale = 'ja';
+    this._dateAdapter.setLocale(this._locale);
+  }
+
 
   onSubmit(customerData: any) {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
@@ -212,7 +239,7 @@ export class ResgisterFormComponent implements OnInit {
     // console.log('Your order has been submitted', this.postulant);
     this.formRegisterLigue.reset();
     this.age="0";
-    // this.router.navigate(["list/home"]);
+    this.router.navigate(["list/home"]);
   }
 
 
@@ -223,6 +250,7 @@ export class ResgisterFormComponent implements OnInit {
       .subscribe((user) => {
         this.postulant = (user) ? user : this.postulant;
         this.startFormReactive();
+        this.calculateAge(this.postulant.dateOfBirth);
       });
   }
 
@@ -272,7 +300,10 @@ export class ResgisterFormComponent implements OnInit {
           }
 
           if(this.postulant.dateOfBirth != value.dateOfBirth){
-            this.calculateAge(value.dateOfBirth);
+            const month = (value.dateOfBirth._i.month < 10)? `0${value.dateOfBirth._i.month+1}`: `${value.dateOfBirth._i.month+1}`;
+            const day = (value.dateOfBirth._i.date < 10)? `0${value.dateOfBirth._i.date}`: `${value.dateOfBirth._i.date}`;
+            const date =  `${value.dateOfBirth._i.year}-${month}-${day}`;
+            this.calculateAge(date);
           }
         });
   }
@@ -317,6 +348,7 @@ export class ResgisterFormComponent implements OnInit {
   }
 
   calculateAge(agePostulant: any){
+    console.log("set date", agePostulant);
     this.postulantApiService.getCalculateAge(agePostulant)
       .subscribe((userAge) => {
         this.age = userAge;

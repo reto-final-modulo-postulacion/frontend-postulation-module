@@ -59,7 +59,7 @@
                     <input name="" type="text" matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                             focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
-                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento" formControlName="dateOfBirth">
+                           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento" formControlName="dateOfBirth">
                     <mat-datepicker-toggle matSuffix [for]="picker"
                         class="flex absolute inset-y-0 left-0 items-center pl-3 text-gray-50 z-50 ">
                     </mat-datepicker-toggle>
@@ -72,7 +72,7 @@
                 </label>
                 <input type="text" id="yearOld" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                     focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600
-                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="age">
+                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" [value]="age" formControlName="age">
             </div>
 
 
@@ -283,5 +283,5 @@
 
     <button type="button"
         class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 my-3 mx-3 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
-         >Atras</button>
+        routerLink="[/list/home]" >Atras</button>
 </div>
