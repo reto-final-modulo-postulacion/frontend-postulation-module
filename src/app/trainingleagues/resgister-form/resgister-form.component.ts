@@ -23,7 +23,7 @@ import 'moment/locale/es';
   templateUrl: './resgister-form.component.html',
   styleUrls: ['./resgister-form.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'es-CO'},
+    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -236,7 +236,8 @@ export class ResgisterFormComponent implements OnInit {
     }
 
     this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
-    // console.log('Your order has been submitted', this.postulant);
+
+  	localStorage.setItem("postulant", JSON.stringify(this.postulant));
     this.formRegisterLigue.reset();
     this.age="0";
     this.router.navigate(["list/home"]);
