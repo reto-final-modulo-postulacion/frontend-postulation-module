@@ -108,27 +108,11 @@ export class ResgisterFormComponent implements OnInit {
 
     this.formRegisterLigue
     .valueChanges
-    .subscribe((value:any) => {
-      console.log(value);
-
-      this.country = value.country!;
-      this.state = value.state!;
-      this.cities = value.cities!;
-      
-      if (value.country != '') {
-        this.getAllStatesOfCountry(); 
-
-        if (value.state != '') {
-          this.getAllCitiesOfCountry();
-        }
-      }
-    });
+    .subscribe();
   }
 
 
 // Funcion que llama 
-  
-
   onSubmit(customerData: any) {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
     let email = JSON.parse(localStorage.getItem("user") || "").email;
