@@ -11,114 +11,116 @@ import { Postulant } from '../interfaces/postulant';
   styleUrls: ['./resgister-form.component.css']
 })
 export class ResgisterFormComponent implements OnInit {
-  postulant: Postulant={
-  		"id": "",
-		"fullName": {
-			name: "",
-			lastname: ""
-		},
-		"documentUser": {
-			type: "",
-			value: ""
-		},
-		"dateOfBirth": "",
-		"nationality": "",
-		"urlPhoto": "",
-		"phone": {
-			"phoneCode": "",
-			"phoneNumber": ""
-		},
-		"email": "",
-		"companyName": "",
-		"workExperience": "",
-		"currentOccupation": "",
-		"educationalLevel": "",
-		"country": "",
-		"department": "",
-		"municipality": "",
-		"address": "",
-		"englishLevel": "",
-		"isStudying": "",
-		"aboutYou": "",
-		"urlCV": "",
-		"linkedin": "",
-		"sessionOn": true,
-		"challenge": {
-			"idChallenge": "",
-			"registrationDate": "",
-			"initialDate": "",
-			"finalDate": "",
-			"language": ""
-		},
-		"idTraining": ""
+  postulant: Postulant = {
+    "id": "",
+    "fullName": {
+      name: "",
+      lastname: ""
+    },
+    "documentUser": {
+      type: "",
+      value: ""
+    },
+    "dateOfBirth": "",
+    "nationality": "",
+    "urlPhoto": "",
+    "phone": {
+      "phoneCode": "",
+      "phoneNumber": ""
+    },
+    "email": "",
+    "companyName": "",
+    "workExperience": "",
+    "currentOccupation": "",
+    "educationalLevel": "",
+    "country": "",
+    "department": "",
+    "municipality": "",
+    "address": "",
+    "englishLevel": "",
+    "isStudying": "",
+    "aboutYou": "",
+    "urlCV": "",
+    "linkedin": "",
+    "sessionOn": true,
+    "challenge": {
+      "idChallenge": "",
+      "registrationDate": "",
+      "initialDate": "",
+      "finalDate": "",
+      "language": ""
+    },
+    "idTraining": ""
   }
   listNameCountries: any[] = [];
   listNameStates: any[] = [];
   listNameCities: any[] = [];
-  country:string = "";
+  country: string = "";
   state: string = "";
+  cities: string = "";
 
 
-   formRegisterLigue = new FormGroup({
-     name: new FormControl(''),
-     lastname: new FormControl(''),
-     country: new FormControl(''),
-     state: new FormControl(''),
-   })
+
+
+  formRegisterLigue = new FormGroup({
+    name: new FormControl(''),
+    lastname: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    cities: new FormControl(''),
+  })
+
+
 
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService
-  ) {
+  ) { }
 
-    // this.formRegisterLigue = this.formBuilder.group({
-    //   name: '',
-    //   lastname: ''
-    // })
-  }
 
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-    this.getAllStatesOfCountry();
-    this.getAllCitiesOfCountry();
 
 
-    this.formRegisterLigue.valueChanges.subscribe((value) =>{
+
+    this.formRegisterLigue.valueChanges.subscribe((value) => {
       console.log(value);
 
       this.country = value.country!;
       this.state = value.state!;
-      this.getAllStatesOfCountry();
-      // this.getAllCitiesOfCountry();
-      // this.listNameCities = value.state!;
+      this.cities = value.cities!;
+      if (value.country != '') {
+        this.getAllStatesOfCountry(); 
+
+        if (value.state != '') {
+          this.getAllCitiesOfCountry();
+        }
+      }
     });
   }
 
-  onSubmit(customerData: any){
+
+
+  
+
+  onSubmit(customerData: any) {
     this.formRegisterLigue.reset();
     console.warn('Your order has been submitted', customerData);
   }
 
 
   getPostulantById() {
-    var userId = JSON.parse(localStorage.getItem("user") || "").uid!;
+    let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
 
-    this.postulantApiService.getPostulantById(userId).subscribe(
-      (user) =>  this.postulant = (user)? user : this.postulant
-    );
-
-    // if (userId !== userId) {
-    // 	this.player.playerId = userId;
-    // 	this.player.email = userEmail;
-    //
-    // 	this.playerAPIService.addPlayer(this.player).subscribe();
-    // }
+    this.postulantApiService
+      .getPostulantById(userId)
+      .subscribe((user) => this.postulant = (user) ? user : this.postulant);
   }
 
-  async obtenerPaises() {
-    let token = await JSON.parse(localStorage.getItem("token")!);
+  obtenerPaises() {
+    let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
       .getAllCountries(token)
       .subscribe((listCountries: any) => {
@@ -130,11 +132,10 @@ export class ResgisterFormComponent implements OnInit {
       });
   }
 
-  getAllStatesOfCountry(){
-    console.log(this.formRegisterLigue.value.country)
+  getAllStatesOfCountry() {
     let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
-      .getAllStatesOfCountry(token,this.country)
+      .getAllStatesOfCountry(token, this.country)
       .subscribe((listStates: any) => {
         this.listNameStates = listStates.map((auxStates: any) => {
           return {
@@ -144,10 +145,10 @@ export class ResgisterFormComponent implements OnInit {
       });
   }
 
-  getAllCitiesOfCountry(){
-  let token = JSON.parse(localStorage.getItem("token")!);
+  getAllCitiesOfCountry() {
+    let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
-      .getAllCitiesOfState(token,this.state)
+      .getAllCitiesOfState(token, this.state)
       .subscribe((listCities: any) => {
         this.listNameCities = listCities.map((auxCities: any) => {
           return {
