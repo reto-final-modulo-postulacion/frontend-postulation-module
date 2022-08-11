@@ -1,55 +1,29 @@
 <div class="flex flex-col justify-center items-center p-32">
-  <mat-card  class="demo-inline-calendar-card">
+  <mat-card class="demo-inline-calendar-card" >
     <mat-label>
-      Escoger 3 dias hábiles en los que desarrollara el reto
+      Para finalizar el proceso se inscripcion, por favor seleccione sus 3 dias habiles para realizar el reto tecnico.
     </mat-label>
-    <mat-date-range-input matInput [min]="minDate" [max]="maxDate" [rangePicker]="picker">
-      <input matStartDate placeholder="Fecha de inicio   ----">
-      <input matEndDate placeholder="Fecha de entrega">
+    <mat-date-range-input matInput [min]="minDate" [max]="maxDate" [rangePicker]="picker" [formGroup]="formFechas">
+      <input matStartDate placeholder="Fecha de inicio   ----" formControlName="inicio">
+      <input matEndDate placeholder="Fecha de entrega" formControlName="final">
     </mat-date-range-input>
-<mat-date-range-picker [dateClass]="dateClass"  #picker >
+    <mat-date-range-picker [dateClass]="dateClass" #picker>
       <mat-date-range-picker-actions>
         <div class="w-full">
           <div class="line-grad"></div>
           <div class="flex w-full justify-around">
             <button mat-button matDatepickerCancel>Cancelar</button>
-            <button mat-raised-button class="button-shadow gradient-btn capitalize mt-2" matDatepickerApply>Agendar</button>
+            <button mat-raised-button class="button-shadow gradient-btn capitalize mt-2"
+              matDatepickerApply (click)="diasAgendados()">Agendar</button>
           </div>
         </div>
       </mat-date-range-picker-actions>
     </mat-date-range-picker>
     <div class="line-grad"></div>
     <div class="flex flex-col justify-center px-12">
-    <button class="button-shadow gradient-btn capitalize mt-2" type="button" (click)= "picker.open()">
-       Agendar Reto
-    </button>
+      <button class="button-shadow gradient-btn capitalize mt-2" type="button" (click)="picker.open()">
+        Agendar Reto
+      </button>
     </div>
   </mat-card>
 </div>
-
-
-
-
-
-
-
-
-
-<!-- <div class="flex flex-col justify-center items-center p-32"> -->
-<!--   <mat-card class="demo-inline-calendar-card"> -->
-<!--    <mat-date-range-input > -->
-<!--     <input matStartDate placeholder="Start date"> -->
-<!--     <input matEndDate placeholder="End date"> -->
-<!--   </mat-date-range-input> -->
-<!--     <mat-calendar #calendar touchUi [(selected)]="selectedDate"> -->
-<!--     </mat-calendar> -->
-<!--     <div class="line-grad"></div> -->
-<!--     <div class="flex flex-col justify-center px-12"> -->
-<!--     <button class="button-shadow gradient-btn capitalize mt-2" type="button" > -->
-<!--        Agendar Reto -->
-<!--     </button> -->
-<!--     </div> -->
-<!--    </mat-card> -->
-<!--   <p>Selected date: {{selectedDate}}</p> -->
-<!-- </div> -->
-<!---->

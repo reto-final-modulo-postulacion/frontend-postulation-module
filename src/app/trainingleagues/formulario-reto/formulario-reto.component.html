@@ -1,0 +1,66 @@
+<div class="max-w-2xl mx-auto dark:bg-gray-900 p-16">
+    <h1 class="block mb-2 text-lg font-medium  dark:text-gray-300 text-center">
+        Configuración del Reto Técnico
+    </h1>
+    <form [formGroup]="formLenguaje" (ngSubmit)="onSubmit()">
+        <div class="grid gap-6 mb-6 2">
+            <div>
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Cierre del Reto
+                </label>
+                <div class="relative">
+                    <input type="text" matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                            focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="15/08/2022" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"
+                        class="flex absolute inset-y-0 left-0 items-center pl-3 text-gray-50 z-50">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                </div>
+            </div>
+
+            <div>
+                <label for="languaje" class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Lenguaje de programacion de preferencia?
+                </label>
+                <select name="languaje" id="languaje"
+                    class="bg-gray-51 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required formControlName="lenguajeUtiliza">
+                    <option selected disabled>Seleccione Su lenguaje</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="TypeScript">TypeScript</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="C#">C#</option>
+                    <option value="GO">GO</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="nameReto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Nombre Del Reto
+                </label>
+                <input type="text" id="lastname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Doe" maxlength="50" disabled>
+            </div>
+            <div class="mb-6">
+                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Descripción del Reto</label>
+                <textarea id="message" rows="4"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="El Reto consta de...." required maxlength="500"></textarea>
+            </div>
+        </div>
+
+
+        <button type="submit"
+            routerLink="/list/detailed-challenge-information"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Confirmar
+            Reto</button>
+
+    </form>
+
+
+</div>
