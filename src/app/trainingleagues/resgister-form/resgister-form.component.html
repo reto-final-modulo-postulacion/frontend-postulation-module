@@ -8,22 +8,20 @@
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Nombre
                 </label>
-                
-                <input type="text" id="first_name" 
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
-                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John"
-                    maxlength="50" [value]="postulant.fullName.name" formControlName="name" required>
+                <input type="text" id="first_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="John" maxlength="50" [value]="postulant.fullName.name" formControlName="name" required>
             </div>
             <div>
                 <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Apellido
                 </label>
-                
-                <input type="text" id="lastname" 
+
+                <input type="text" id="lastname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Doe" maxlength="50" [value]="postulant.fullName.lastname" formControlName="lastname"
                     required>
+
             </div>
             <div>
                 <label for="typeDocument" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -193,7 +191,7 @@
                 </label>
                 <select name="department" id="department"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required>
+                    required  formControlName="state">
                     <option selected disabled *ngIf='postulant.department == ""'>Seleccione un Departamento</option>
                     <option selected disabled *ngIf='postulant.department !== ""'>{{postulant.department}}</option>
                     <option *ngFor="let state of listNameStates" value="{{state.name}}">{{state.name}}</option>
@@ -205,10 +203,10 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Municipio</label>
                 <select name="municipality" id="municipality"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required>
+                    required formControlName="cities">
                     <option selected disabled *ngIf='postulant.municipality == ""'>Seleccione un Municipio</option>
                     <option selected disabled *ngIf='postulant.municipality !== ""'>{{postulant.municipality}}</option>
-                    <option *ngFor="let cyti of listNameStates" value="{{cyti.name}}">{{cyti.name}}</option>
+                    <option *ngFor="let cyti of listNameCities" value="{{cyti.name}}">{{cyti.name}}</option>
                 </select>
             </div>
         </div>
