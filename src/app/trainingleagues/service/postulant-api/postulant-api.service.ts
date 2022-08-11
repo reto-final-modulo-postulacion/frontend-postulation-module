@@ -26,6 +26,15 @@ export class PostulantApiService {
 		);
 	}
 
+
+	/** PUT: update the Pastuland on the server */
+	updatePostulant(id: string, postulant: Postulant): Observable<any> {
+		const url = `${this.postulandURL}/${id}`;
+		return this.http.put(url, postulant, this.httpOptions).pipe(
+			tap((_) => console.log(`updated Postulant ${postulant.urlPhoto}`)),
+			catchError(this.handleError<any>("updatPostulant")),
+		);
+	}
   /**
    * Handle Http operation that failed.
    * Let the app continue.
