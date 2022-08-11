@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
-import { Countrie } from '../interfaces/countries';
+// import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
+import { Router } from "@angular/router";
 import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
@@ -60,7 +61,7 @@ export class ResgisterFormComponent implements OnInit {
   country: string = "";
   state: string = "";
   cities: string = "";
-  age: string = "23";
+  age: any;
   formRegisterLigue: any;
   photoURL: any;
   urlCV: any;
@@ -95,6 +96,7 @@ export class ResgisterFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService,
+    private router: Router,
     private storage: Storage,
   ) {
   }
@@ -103,6 +105,7 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
+    this.calculateAge(this.postulant.dateOfBirth);
     // this.getAllStatesOfCountry();
     // this.getAllCitiesOfCountry();
 
@@ -110,7 +113,55 @@ export class ResgisterFormComponent implements OnInit {
   }
 
 
+  updatePostulant() {
+    let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
+    let email = JSON.parse(localStorage.getItem("user") || "").email;
+    let user = this.formRegisterLigue.value;
+    // let user = customerData;
+    this.postulant={
+    "id": "",
+    "fullName": {
+      name: user.name,
+      lastname: user.lastname
+    },
+    "documentUser": {
+      type: user.documentType,
+      value: user.documentValue
+    },
+    "dateOfBirth": user.dateOfBirth,
+    "nationality": user.nationality,
+    "urlPhoto": this.photoURL,
+    "phone": {
+      "phoneCode": user.phoneCode,
+      "phoneNumber": user.phoneNumber
+    },
+    "email": email,
+    "companyName": user.companyName,
+    "workExperience": user.workExperience,
+    "currentOccupation": user.currentOccupation,
+    "educationalLevel": user.educationalLevel,
+    "country": user.country,
+    "department": user.state,
+    "municipality": user.cities,
+    "address": user.address,
+    "englishLevel": user.englishLevel,
+    "isStudying": user.isStudying,
+    "aboutYou": user.aboutYou,
+    "urlCV": this.urlCV,
+    "linkedin": user.linkedin,
+    "sessionOn": true,
+    "challenge": {
+      "idChallenge": "",
+      "registrationDate": "",
+      "initialDate": "",
+      "finalDate": "",
+      "language": ""
+    },
+    "idTraining": JSON.parse(localStorage.getItem("idTraining")!)
+    }
 
+    this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
+  }
 
 
   onSubmit(customerData: any) {
@@ -157,13 +208,14 @@ export class ResgisterFormComponent implements OnInit {
       "finalDate": "",
       "language": ""
     },
-    "idTraining": ""
+    "idTraining": JSON.parse(localStorage.getItem("idTraining")!)
     }
 
     this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
     // console.log('Your order has been submitted', this.postulant);
     this.formRegisterLigue.reset();
     this.age="0";
+    // this.router.navigate(["list/home"]);
   }
 
 
@@ -204,9 +256,12 @@ export class ResgisterFormComponent implements OnInit {
           linkedin: this.postulant.linkedin || "",
         });
 
+        this.urlCV = this.postulant.urlCV;
+        this.photoURL = this.postulant.urlPhoto;
+        this.formRegisterLigue.controls['age'].disable();
 
         this.formRegisterLigue.valueChanges.subscribe((value: any) => {
-          // console.log(value);
+          console.log(value);
 
           // this.cities = value.cities!;
           if (this.country !== value.country) {
@@ -219,6 +274,9 @@ export class ResgisterFormComponent implements OnInit {
               this.getAllCitiesOfState();
           }
 
+          if(this.postulant.dateOfBirth != value.dateOfBirth){
+            this.calculateAge(value.dateOfBirth);
+          }
         });
   }
 
@@ -258,6 +316,13 @@ export class ResgisterFormComponent implements OnInit {
             name: auxCities.city_name
           }
         });
+      });
+  }
+
+  calculateAge(agePostulant: any){
+    this.postulantApiService.getCalculateAge(agePostulant)
+      .subscribe((userAge) => {
+        this.age = userAge;
       });
   }
 
