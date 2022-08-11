@@ -40,7 +40,7 @@
                 {{trainingleague.dateConvocationEnd}}
               </h6>
               <div class="flex flex-col justify-center px-12">
-                <button class="button-shadow gradient-btn capitalize mt-2" type="button" routerLink="/list/registro-postulation">
+                <button class="button-shadow gradient-btn capitalize mt-2" type="button" [id]="trainingleague.id" (click)="startButton($event)">
                   Postulate
                 </button>
               </div>

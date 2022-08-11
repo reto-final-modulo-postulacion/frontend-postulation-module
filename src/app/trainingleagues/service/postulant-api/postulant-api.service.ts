@@ -26,6 +26,16 @@ export class PostulantApiService {
 		);
 	}
 
+	/** GET Calculate Age wiht the id Postulant */
+	getCalculateAge(id: string): Observable<Postulant> {
+		const url = `${this.postulandURL}/calculateage/${id}`;
+		return this.http.get<Postulant>(url).pipe(
+			tap((res) => console.log(`fetched Calculate age of postulant id: ${id}`, res)),
+			catchError(this.handleError<Postulant>(`getCalculateAge id: ${id} `)),
+		);
+	}
+
+
 
 	/** PUT: update the Pastuland on the server */
 	updatePostulant(id: string, postulant: Postulant): Observable<any> {

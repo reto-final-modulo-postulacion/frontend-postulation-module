@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { TrainingLeague } from "../interfaces/trainingLeague";
 import { TrainingLeagueApiService } from "../service/treining-league-api-service/training-league-api.service";
 
@@ -10,9 +11,8 @@ import { TrainingLeagueApiService } from "../service/treining-league-api-service
 export class ListTrainigLeaguesComponent implements OnInit {
   trainingLeagues: TrainingLeague[]=[];
 
-	constructor(private trainingLeagueApiService: TrainingLeagueApiService) {
-
-	}
+	constructor(private trainingLeagueApiService: TrainingLeagueApiService, private router: Router) {
+    	}
 
 	ngOnInit(): void {
 	  this.addTrainingLeagues();
@@ -23,4 +23,11 @@ export class ListTrainigLeaguesComponent implements OnInit {
       (trainingLeague) => this.trainingLeagues = trainingLeague
     );
 	}
+
+
+  startButton($event: any){
+    const element= $event.target.id;
+  	localStorage.setItem("idTraining", JSON.stringify(element));
+    this.router.navigate(["list/registro-postulation"]);
+  }
 }
