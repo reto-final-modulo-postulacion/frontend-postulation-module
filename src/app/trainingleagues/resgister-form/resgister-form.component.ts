@@ -70,8 +70,6 @@ export class ResgisterFormComponent implements OnInit {
     cities: new FormControl(''),
   })
 
-
-
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
@@ -82,6 +80,9 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
+    // this.getAllStatesOfCountry();
+    // this.getAllCitiesOfCountry();
+
 
 
 
@@ -145,8 +146,8 @@ export class ResgisterFormComponent implements OnInit {
       });
   }
 
-  getAllCitiesOfCountry() {
-    let token = JSON.parse(localStorage.getItem("token")!);
+  getAllCitiesOfState(){
+  let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
       .getAllCitiesOfState(token, this.state)
       .subscribe((listCities: any) => {
@@ -155,6 +156,8 @@ export class ResgisterFormComponent implements OnInit {
             name: auxCities.city_name
           }
         });
+        console.log("hola", listCities);
+
       });
   }
 

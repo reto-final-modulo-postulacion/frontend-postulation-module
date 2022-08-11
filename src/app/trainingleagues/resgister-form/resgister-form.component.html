@@ -192,6 +192,7 @@
                 <select name="department" id="department"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required  formControlName="state">
+
                     <option selected disabled *ngIf='postulant.department == ""'>Seleccione un Departamento</option>
                     <option selected disabled *ngIf='postulant.department !== ""'>{{postulant.department}}</option>
                     <option *ngFor="let state of listNameStates" value="{{state.name}}">{{state.name}}</option>
