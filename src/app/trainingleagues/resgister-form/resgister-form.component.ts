@@ -57,7 +57,7 @@ export class ResgisterFormComponent implements OnInit {
   listNameCities: any[] = [];
   country: string = "";
   state: string = "";
-  cities:string = "";
+  cities: string = "";
 
 
 
@@ -82,8 +82,7 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-    this.getAllStatesOfCountry();
-    this.getAllCitiesOfCountry();
+
 
 
     this.formRegisterLigue.valueChanges.subscribe((value) => {
@@ -92,10 +91,19 @@ export class ResgisterFormComponent implements OnInit {
       this.country = value.country!;
       this.state = value.state!;
       this.cities = value.cities!;
-      this.getAllStatesOfCountry();
-      this.getAllCitiesOfCountry();
+      if (value.country != '') {
+        this.getAllStatesOfCountry(); 
+
+        if (value.state != '') {
+          this.getAllCitiesOfCountry();
+        }
+      }
     });
   }
+
+
+
+  
 
   onSubmit(customerData: any) {
     this.formRegisterLigue.reset();
@@ -106,14 +114,13 @@ export class ResgisterFormComponent implements OnInit {
   getPostulantById() {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
 
-
     this.postulantApiService
       .getPostulantById(userId)
       .subscribe((user) => this.postulant = (user) ? user : this.postulant);
   }
 
-  async obtenerPaises() {
-    let token = await JSON.parse(localStorage.getItem("token")!);
+  obtenerPaises() {
+    let token = JSON.parse(localStorage.getItem("token")!);
     this.countriesApiService
       .getAllCountries(token)
       .subscribe((listCountries: any) => {
