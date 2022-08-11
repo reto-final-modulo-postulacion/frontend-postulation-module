@@ -8,9 +8,9 @@
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Nombre
                 </label>
-                <input type="text" id="first_name"
+                <input type="text" id="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="John" maxlength="50" [value]="postulant.fullName.name" formControlName="name" required>
+                    placeholder="John" maxlength="50" formControlName="name" required>
             </div>
             <div>
                 <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -19,7 +19,7 @@
 
                 <input type="text" id="lastname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Doe" maxlength="50" [value]="postulant.fullName.lastname" formControlName="lastname"
+                    placeholder="Doe" maxlength="50" formControlName="lastname"
                     required>
 
             </div>
@@ -29,7 +29,7 @@
                 </label>
                 <select name="typeDocument" id="typeDocument"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Flowbite" required>
+                    placeholder="Flowbite" required formControlName="documentType">
                     <option selected disabled *ngIf='postulant.documentUser.type == "" '>
                         Seleccione un Documento
                     </option>
@@ -47,7 +47,7 @@
                 </label>
                 <input type="number" id="numberDocument"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="1017275869" pattern="[0-9]{8,10}" [value]="postulant.documentUser.value" required>
+                    placeholder="1017275869" pattern="[0-9]{8,10}"  required  formControlName="documentValue">
             </div>
 
             <div>
@@ -59,7 +59,7 @@
                     <input name="" type="text" matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                             focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
-                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento" value="{{postulant.dateOfBirth}}">
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento" formControlName="dateOfBirth">
                     <mat-datepicker-toggle matSuffix [for]="picker"
                         class="flex absolute inset-y-0 left-0 items-center pl-3 text-gray-50 z-50 ">
                     </mat-datepicker-toggle>
@@ -72,8 +72,8 @@
                 </label>
                 <p type="text" id="yearOld" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                     focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
-                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
-                    {{19}}
+                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " formControlName="age">
+                    {{age}}
                 <p>
             </div>
 
@@ -83,22 +83,22 @@
                     Celular
                 </label>
                 <div class="flex">
-                    <input type="tel" id="numberPhoneCode"
+                    <input type="tel" id="phoneCode"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="+57" [value]="postulant.phone.phoneCode" pattern="[0-9]{3}" required>
-                    <input type="tel" id="numberPhone"
+                        placeholder="+57" pattern="[0-9]{3}" required formControlName="phoneCode">
+                    <input type="tel" id="phoneNumber"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="3215801523" pattern="[0-9]{10}" [value]="postulant.phone.phoneNumber" required>
+                        placeholder="3215801523" pattern="[0-9]{10}" required  formControlName="phoneNumber">
 
                 </div>
             </div>
 
             <div>
-                <label for="nacionaidad"
+                <label for="nationality"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nacionalidad</label>
-                <select name="nacionalidad" id="nacionalidad"
+                <select name="nationality" id="nationality"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Flowbite" required>
+                    placeholder="Flowbite" required  formControlName="nationality">
                     <option selected disabled *ngIf='postulant.nationality == ""'>
                         Seleccione la nacionalidad
                     </option>
@@ -116,7 +116,7 @@
                 Foto Personal</label>
             <input
                 class="block w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                id="imagen" type="file">
+                id="imagen" type="file" formControlName="urlPhoto" (change)="uploadImage($event)">
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG, JPEG.</p>
         </div>
 
@@ -128,8 +128,7 @@
                 </label>
                 <input type="text" id="enterPriceName"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Sofka Technologies" required formControlName="enterPriceName" maxlength="50"
-                    [value]="postulant.companyName">
+                    placeholder="Sofka Technologies" required formControlName="enterPriceName" maxlength="50" formControlName="companyName">
             </div>
 
             <div>
@@ -138,7 +137,7 @@
                 <input type="text" id="occupation"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Programador" required formControlName="occupation" maxlength="50"
-                    value="{{postulant.workExperience}}">
+                    formControlName="workExperience">
             </div>
         </div>
 
@@ -149,7 +148,7 @@
             <input type="text" id="currentOccupation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Actualmente ocupo el cargo de Administracion" maxlength="50"
-                value="{{postulant.currentOccupation}}" required>
+                required  formControlName="currentOccupation">
         </div>
 
 
@@ -159,7 +158,7 @@
             </label>
             <select class type="password" id="levelEducation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required>
+                required  formControlName="educationalLevel">
                 <option selected disabled *ngIf='postulant.educationalLevel == ""'>Seleccione Nivel de Estudio</option>
                 <option selected disabled *ngIf='postulant.educationalLevel !== ""'>{{postulant.educationalLevel}}
                 </option>
@@ -192,6 +191,7 @@
                 <select name="department" id="department"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required  formControlName="state">
+
                     <option selected disabled *ngIf='postulant.department == ""'>Seleccione un Departamento</option>
                     <option selected disabled *ngIf='postulant.department !== ""'>{{postulant.department}}</option>
                     <option *ngFor="let state of listNameStates" value="{{state.name}}">{{state.name}}</option>
@@ -217,7 +217,7 @@
             </label>
             <input type="text" id="Address"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Example: calle 35 # 33-09" required maxlength="50" [value]="postulant.address">
+                placeholder="Example: calle 35 # 33-09" required maxlength="50" formControlName="address">
         </div>
 
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
@@ -226,7 +226,7 @@
                     de Ingles</label>
                 <select name="levelEnglish" id="levelEnglish"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required>
+                    required formControlName="englishLevel">
                     <option selected disabled *ngIf='postulant.englishLevel == ""'>Seleccione el Nivel de Ingles
                     </option>
                     <option selected disabled *ngIf='postulant.englishLevel == ""'>{{postulant.englishLevel}}</option>
@@ -244,7 +244,7 @@
                     Actualmente?</label>
                 <select name="study" id="study"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required>
+                    required  formControlName="isStudying">
                     <option selected disabled *ngIf='postulant.englishLevel == ""'>{{postulant.englishLevel}}</option>
                     <option selected disabled>{{postulant.isStudying}}</option>
                     <option value="si">Si</option>
@@ -259,7 +259,7 @@
             <textarea id="message" rows="4"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Soy un profesional del area de la informatica...." required maxlength="500"
-                [value]="postulant.aboutYou"></textarea>
+                formControlName="aboutYou"></textarea>
         </div>
 
         <div class="mb-6">
@@ -267,7 +267,7 @@
                 Hoja de Vida (CV)</label>
             <input
                 class="block w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                id="cv" type="file">
+                id="cv" type="file" formControlName="urlCV"  (change)="uploadDocument($event)">
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, DOCS, ETC</p>
         </div>
 
@@ -277,10 +277,10 @@
             </label>
             <input type="text" id="description"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="" maxlength="500" [value]="postulant.linkedin" required>
+                placeholder="" maxlength="500" formControlName="linkedin" required>
         </div>
         <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" routerLink="list/form-reto">Inscribirse</button>
     </form>
 
     <button type="button"

@@ -16,6 +16,10 @@ import { PostulationHomeComponent } from './postulation-home/postulation-home.co
 import { ResgisterFormComponent } from './resgister-form/resgister-form.component';
 import { DetailedChallengeInformationComponent } from './detailed-challenge-information/detailed-challenge-information.component';
 import { FormularioRetoComponent } from './formulario-reto/formulario-reto.component';
+import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
+import { provideStorage, getStorage } from "@angular/fire/storage";
+import { environment } from "../../environments/environment";
+
 
 
 
@@ -39,7 +43,9 @@ import { FormularioRetoComponent } from './formulario-reto/formulario-reto.compo
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    provideFirebaseApp(()=> initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ]
 })
 export class TrainingleaguesModule { }
