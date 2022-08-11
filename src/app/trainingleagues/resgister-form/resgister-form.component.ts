@@ -5,6 +5,8 @@ import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
 import { Postulant } from '../interfaces/postulant';
 
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+
 @Component({
   selector: 'app-resgister-form',
   templateUrl: './resgister-form.component.html',
@@ -60,7 +62,8 @@ export class ResgisterFormComponent implements OnInit {
   cities: string = "";
   age: string = "23";
   formRegisterLigue: any;
-
+  photoURL: any;
+  urlCV: any;
 
 
   /*formRegisterLigue = new FormGroup({
@@ -91,7 +94,8 @@ export class ResgisterFormComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
-    private countriesApiService: ServiceApiCountriesService
+    private countriesApiService: ServiceApiCountriesService,
+    private storage: Storage,
   ) {
   }
 
@@ -126,7 +130,7 @@ export class ResgisterFormComponent implements OnInit {
     },
     "dateOfBirth": user.dateOfBirth,
     "nationality": user.nationality,
-    "urlPhoto": user.urlPhoto,
+    "urlPhoto": this.photoURL,
     "phone": {
       "phoneCode": user.phoneCode,
       "phoneNumber": user.phoneNumber
@@ -143,7 +147,7 @@ export class ResgisterFormComponent implements OnInit {
     "englishLevel": user.englishLevel,
     "isStudying": user.isStudying,
     "aboutYou": user.aboutYou,
-    "urlCV": user.urlCV,
+    "urlCV": this.urlCV,
     "linkedin": user.linkedin,
     "sessionOn": true,
     "challenge": {
@@ -257,5 +261,34 @@ export class ResgisterFormComponent implements OnInit {
       });
   }
 
+  uploadImage($event: any){
+    const file= $event.target.files[0];
+    console.log(file);
 
+    const imgRef = ref(this.storage, `images/${file.name}`);
+    uploadBytes(imgRef, file)
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+
+    getDownloadURL(imgRef).then((url)=> {
+      console.log(url)
+      this.photoURL= url;
+    }
+    ).catch((error) => console.log(error))
+  }
+
+
+  uploadDocument($event: any){
+    const file= $event.target.files[0];
+    console.log(file);
+    const imgRef = ref(this.storage, `document/${file.name}`);
+    uploadBytes(imgRef, file)
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+
+    getDownloadURL(imgRef).then((url)=> {
+      console.log(url)
+      this.urlCV = url;
+    }).catch((error) => console.log(error))
+  }
 }

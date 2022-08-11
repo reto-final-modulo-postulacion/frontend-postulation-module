@@ -31,7 +31,7 @@ export class PostulantApiService {
 	updatePostulant(id: string, postulant: Postulant): Observable<any> {
 		const url = `${this.postulandURL}/${id}`;
 		return this.http.put(url, postulant, this.httpOptions).pipe(
-			tap((_) => console.log(`updated Postulant id=${postulant.id}`)),
+			tap((_) => console.log(`updated Postulant ${postulant.urlPhoto}`)),
 			catchError(this.handleError<any>("updatPostulant")),
 		);
 	}
