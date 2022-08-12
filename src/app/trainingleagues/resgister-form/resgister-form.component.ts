@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { Router } from '@angular/router';
 
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -86,31 +87,6 @@ export class ResgisterFormComponent implements OnInit {
   urlCV: any;
 
 
-  /*formRegisterLigue = new FormGroup({
-      name: new FormControl(''),
-      lastname: new FormControl(''),
-      documentType: new FormControl(''),
-      documentValue: new FormControl(''),
-      dateOfBirth: new FormControl(''),
-      nationality: new FormControl(''),
-      urlPhoto: new FormControl(''),
-      phoneCode: new FormControl(''),
-      phoneNumber: new FormControl(''),
-      companyName: new FormControl(''),
-      workExperience: new FormControl(''),
-      currentOccupation: new FormControl(''),
-      educationalLevel: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      cities: new FormControl(''),
-      address: new FormControl(''),
-      englishLevel: new FormControl(''),
-      isStudying: new FormControl(''),
-      aboutYou: new FormControl(''),
-      urlCV: new FormControl(''),
-      linkedin: new FormControl(''),
-  });*/
-
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
@@ -126,67 +102,13 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-    // this.getAllStatesOfCountry();
-    // this.getAllCitiesOfCountry();
-    // this.español();
   }
-/*
-  updatePostulant() {
-    let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
-    let email = JSON.parse(localStorage.getItem("user") || "").email;
-    let user = this.formRegisterLigue.value;
-    // let user = customerData;
-    this.postulant={
-    "id": "",
-    "fullName": {
-      name: user.name,
-      lastname: user.lastname
-    },
-    "documentUser": {
-      type: user.documentType,
-      value: user.documentValue
-    },
-    "dateOfBirth": user.dateOfBirth,
-    "nationality": user.nationality,
-    "urlPhoto": this.photoURL,
-    "phone": {
-      "phoneCode": user.phoneCode,
-      "phoneNumber": user.phoneNumber
-    },
-    "email": email,
-    "companyName": user.companyName,
-    "workExperience": user.workExperience,
-    "currentOccupation": user.currentOccupation,
-    "educationalLevel": user.educationalLevel,
-    "country": user.country,
-    "department": user.state,
-    "municipality": user.cities,
-    "address": user.address,
-    "englishLevel": user.englishLevel,
-    "isStudying": user.isStudying,
-    "aboutYou": user.aboutYou,
-    "urlCV": this.urlCV,
-    "linkedin": user.linkedin,
-    "sessionOn": true,
-    "challenge": {
-      "idChallenge": "",
-      "registrationDate": "",
-      "initialDate": "",
-      "finalDate": "",
-      "language": ""
-    },
-    "idTraining": JSON.parse(localStorage.getItem("idTraining")!)
-    }
 
-    this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
-  }
-*/
 
   español() {
     this._locale = 'ja';
     this._dateAdapter.setLocale(this._locale);
   }
-
 
   onSubmit(customerData: any) {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
@@ -241,7 +163,7 @@ export class ResgisterFormComponent implements OnInit {
     this.formRegisterLigue.reset();
     this.age="0";
     this.router.navigate(["list/form-reto"]);
-  }
+   }
 
 
   getPostulantById() {
@@ -287,9 +209,7 @@ export class ResgisterFormComponent implements OnInit {
         this.formRegisterLigue.controls['age'].disable();
 
         this.formRegisterLigue.valueChanges.subscribe((value: any) => {
-          console.log(value);
 
-          // this.cities = value.cities!;
           if (this.country !== value.country) {
             this.country = value.country!;
             this.getAllStatesOfCountry();
@@ -366,7 +286,6 @@ export class ResgisterFormComponent implements OnInit {
     .catch(error => console.log(error))
 
     getDownloadURL(imgRef).then((url)=> {
-      console.log(url)
       this.photoURL= url;
     }
     ).catch((error) => console.log(error))
