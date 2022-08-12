@@ -143,7 +143,6 @@ export class AuthService {
 			});
 	}
 
-	// Salir Sesion
 	async SignOut() {
 		return await this.afAuth.signOut().then(() => {
 			let { uid } = JSON.parse(localStorage.getItem("user")!);
