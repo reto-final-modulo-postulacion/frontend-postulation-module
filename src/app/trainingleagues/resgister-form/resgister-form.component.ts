@@ -240,7 +240,7 @@ export class ResgisterFormComponent implements OnInit {
   	localStorage.setItem("postulant", JSON.stringify(this.postulant));
     this.formRegisterLigue.reset();
     this.age="0";
-    this.router.navigate(["list/home"]);
+    this.router.navigate(["list/form-reto"]);
   }
 
 
