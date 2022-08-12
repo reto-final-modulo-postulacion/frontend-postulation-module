@@ -125,11 +125,11 @@ export class ResgisterFormComponent implements OnInit {
 // Funcion que llama 
 
 
+
   español() {
     this._locale = 'ja';
     this._dateAdapter.setLocale(this._locale);
   }
-
 
   onSubmit(customerData: any) {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
@@ -185,7 +185,7 @@ export class ResgisterFormComponent implements OnInit {
     this.formRegisterLigue.reset();
     this.age="0";
     this.router.navigate(["list/form-reto"]);
-  }
+   }
 
 
   getPostulantById() {

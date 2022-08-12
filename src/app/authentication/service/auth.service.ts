@@ -50,8 +50,13 @@ export class AuthService {
 							icon: "warning",
 							text: "El usuario ya se encuentra registrado con anterioridad",
 							confirmButtonText: "Aceptar",
+						}).then((result) => {
+							if (result.isConfirmed){
+								localStorage.removeItem("user");
+								localStorage.removeItem("token");
+								this.router.navigate(["auth/login"]);
+							}
 						});
-
 					}
 				})
 			})
@@ -138,7 +143,6 @@ export class AuthService {
 			});
 	}
 
-	// Salir Sesion
 	async SignOut() {
 		return await this.afAuth.signOut().then(() => {
 			let { uid } = JSON.parse(localStorage.getItem("user")!);
@@ -163,9 +167,9 @@ export class AuthService {
 					if(session !== true){
 						if (user) {
 							console.log("DENTRO DEL USER");
-							this.postulant.updateStateSessionPostulant(user?.uid!).subscribe();
 							localStorage.setItem("user", JSON.stringify(this.userData));
 							this.router.navigate(["list/home"]);
+							this.postulant.updateStateSessionPostulant(user?.uid!).subscribe();
 						}
 					} else {
 						Swal.fire({
@@ -173,6 +177,12 @@ export class AuthService {
 							icon: "warning",
 							text: "El usuario ya se encuentra registrado con anterioridad",
 							confirmButtonText: "Aceptar",
+						}).then((result) => {
+							if (result.isConfirmed){
+								localStorage.removeItem("user");
+								localStorage.removeItem("token");
+								this.router.navigate(["auth/login"]);
+							}
 						});
 
 					}
