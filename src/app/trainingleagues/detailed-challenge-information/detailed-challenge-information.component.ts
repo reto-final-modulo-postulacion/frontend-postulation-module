@@ -10,6 +10,7 @@ import {
   MAT_DATE_RANGE_SELECTION_STRATEGY,
   MatCalendarCellClassFunction
 } from '@angular/material/datepicker';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
@@ -89,7 +90,22 @@ export class DetailedChallengeInformationComponent implements OnInit {
   };
 
   diasAgendados() {
-    console.log(this.formFechas.value);
-    // console.log(this.formFechas.value.inicio);
+    Swal.fire({
+      title: "Confirmar",
+      icon: "question",
+      text: "¿Desea Agendar estos dias para realizar el reto tecnico?",
+      showCancelButton:true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: "Aceptar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Feliciataciones!',
+          'Tu reto se ha agendado con exito, peramos en Sofka Para empezar esta aventura',
+          'success'
+        )
+      }
+    });
   }
 }

@@ -9,7 +9,7 @@ import { TrainingLeague } from "../../interfaces/trainingLeague";
   providedIn: 'root'
 })
 export class TrainingLeagueApiService {
-  private	trainingLeagueURL = "api/trainingleague/"
+  private	trainingLeagueURL = "api/trainingleague"
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),
