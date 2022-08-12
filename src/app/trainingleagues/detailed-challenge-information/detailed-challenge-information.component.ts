@@ -51,7 +51,7 @@ export class DetailedChallengeInformationComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   dateDay: number;
-  
+
   formFechas = new FormGroup({
     inicio: new FormControl(''),
     final: new FormControl(''),
@@ -65,7 +65,7 @@ export class DetailedChallengeInformationComponent implements OnInit {
     const currentDay = new Date().getDate();
     this.dateDay = currentDay;
     this.minDate = new Date(currentYear, currentMonth, currentDay + 1);
-    this.maxDate = new Date(currentYear, currentMonth, currentDay + 13); 
+    this.maxDate = new Date(currentYear, currentMonth, currentDay + 13);
   }
 
   ngOnInit(): void {
