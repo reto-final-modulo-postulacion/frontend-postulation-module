@@ -8,6 +8,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { User } from "../interfaces/Interface.User";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { PostulantApiService } from "src/app/trainingleagues/service/postulant-api/postulant-api.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -19,6 +20,7 @@ export class AuthService {
 		public afs: AngularFirestore,
 		public afAuth: AngularFireAuth,
 		public router: Router,
+		private postulant: PostulantApiService
 	) {
 		this.afAuth.authState.subscribe((user) => {
 			if (user) {
@@ -37,8 +39,20 @@ export class AuthService {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
-				this.SetUserData(result.user, displayName);
-				this.router.navigate(["list/home"]);
+				this.postulant.getPostulantSessionOn(result.user?.uid||"").subscribe(session => {
+					if(session.sessionOn !== true){
+						this.SetUserData(result.user, displayName);
+						this.router.navigate(["list/home"]);
+					} else {
+						Swal.fire({
+							title: "Usuario Ya tiene una Sesión activa",
+							icon: "warning",
+							text: "El usuario ya se encuentra registrado con anterioridad",
+							confirmButtonText: "Aceptar",
+						});
+
+					}
+				})
 			})
 			.catch(() => {
 				Swal.fire({
@@ -136,10 +150,23 @@ export class AuthService {
 	async GoogleAuth() {
 		return await this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
 			this.afAuth.onAuthStateChanged((user) => {
-				if (user) {
-					localStorage.setItem("user", JSON.stringify(this.userData));
-					this.router.navigate(["list/home"]);
-				}
+				this.postulant.getPostulantSessionOn(user?.uid||"").subscribe(session => {
+					if(session.sessionOn !== true){
+						if (user) {
+							localStorage.setItem("user", JSON.stringify(this.userData));
+							this.router.navigate(["list/home"]);
+						}
+					} else {
+						Swal.fire({
+							title: "Usuario Ya tiene una Sesión activa",
+							icon: "warning",
+							text: "El usuario ya se encuentra registrado con anterioridad",
+							confirmButtonText: "Aceptar",
+						});
+
+					}
+				})
+
 			});
 		});
 	}
