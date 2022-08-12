@@ -4,7 +4,7 @@ import { PostulantApiService } from '../service/postulant-api/postulant-api.serv
 // import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
 import { Postulant } from '../interfaces/postulant';
-
+import {Router} from "@angular/router";
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
 import {
@@ -100,28 +100,10 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-
-
-    this.formRegisterLigue
-    .valueChanges
-    .subscribe((value:any) => {
-      console.log(value);
-
-      this.country = value.country!;
-      this.state = value.state!;
-      this.cities = value.cities!;
-      if (value.country != '') {
-        this.getAllStatesOfCountry(); 
-
-        if (value.state != '') {
-          this.getAllCitiesOfState();
-        }
-      }
-    });
   }
 
 
-// Funcion que llama 
+// Funcion que llama
 
 
 
