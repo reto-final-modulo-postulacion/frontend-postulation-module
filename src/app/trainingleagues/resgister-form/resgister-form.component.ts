@@ -97,7 +97,7 @@ export class ResgisterFormComponent implements OnInit {
   ) {
   }
 
-
+  //inicio del proyecto
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
