@@ -39,9 +39,10 @@ export class AuthService {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
-				this.postulant.getPostulantSessionOn(result.user?.uid||"").subscribe(session => {
-					if(session.sessionOn !== true){
+				this.postulant.getPostulantSessionOn(result.user?.uid!).subscribe(session => {
+					if(session !== true){
 						this.SetUserData(result.user, displayName);
+						this.postulant.updateStateSessionPostulant(result.user?.uid!).subscribe();
 						this.router.navigate(["list/home"]);
 					} else {
 						Swal.fire({
@@ -140,9 +141,16 @@ export class AuthService {
 	// Salir Sesion
 	async SignOut() {
 		return await this.afAuth.signOut().then(() => {
+			let { uid } = JSON.parse(localStorage.getItem("user")!);
 			localStorage.removeItem("user");
 			localStorage.removeItem("token");
 			this.router.navigate(["auth/login"]);
+			this.postulant.getPostulantSessionOn(uid).subscribe(session => {
+				if(session === true){
+					this.postulant.updateStateSessionPostulant(uid).subscribe();
+					this.router.navigate(["auth/login"]);
+				}
+			})
 		});
 	}
 
@@ -150,9 +158,12 @@ export class AuthService {
 	async GoogleAuth() {
 		return await this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
 			this.afAuth.onAuthStateChanged((user) => {
-				this.postulant.getPostulantSessionOn(user?.uid||"").subscribe(session => {
-					if(session.sessionOn !== true){
+				this.postulant.getPostulantSessionOn(user?.uid!).subscribe(session => {
+					console.log("AQUI ESTOY " + session);
+					if(session !== true){
 						if (user) {
+							console.log("DENTRO DEL USER");
+							this.postulant.updateStateSessionPostulant(user?.uid!).subscribe();
 							localStorage.setItem("user", JSON.stringify(this.userData));
 							this.router.navigate(["list/home"]);
 						}
