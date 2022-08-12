@@ -1,7 +1,6 @@
 <div class="bg-white dark:bg-gray-900">
     <div class="flex justify-center h-screen">
 
-
         <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
             <div class="flex-1">
                 <div class="text-center">
@@ -10,61 +9,71 @@
                     <p class="mt-3 text-gray-500 dark:text-gray-300">Crea tu cuenta para el poder</p>
                 </div>
 
-                <div class="mt-8">
-                    <form>
+                <div class="mt-4">
+                    <form [formGroup]="form" (submit)="onSubmit()">
                         <div>
-                            <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Nombre</label>
+                            <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Nombre
+                                Completo</label>
                             <input type="text" name="name" id="name" placeholder="Name"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                #userName />
+                                formControlName="displayName" />
+
+                            <div class="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded relative"
+                                role="alert"
+                                *ngIf="!form.get('displayName')?.valid && form.get('displayName')?.touched">
+                                <p class="block sm:inline">El Campo del nombre es <strong
+                                        class="font-bold">requerido</strong>.</p>
+                            </div>
                         </div>
 
-                        <div class="mt-6">
-                            <label for="lastName"
-                                class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Apellido</label>
-                            <input type="lastName" name="lastName" id="lastName" placeholder="LastExmaple"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" 
-                                #userLastName/>
-                        </div>
-
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Dirección de
                                 correo electrónico</label>
-                            <input type="email" name="email" id="email" placeholder="example@example.com"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" 
-                                #userEmail/>
+                            <input type="email" placeholder="example@example.com"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                formControlName="email" />
+
+                            <div class="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded relative"
+                                role="alert" *ngIf="!form.get('email')?.valid && form.get('email')?.touched">
+                                <p class="block sm:inline">El Campo de Email es <strong
+                                        class="font-bold">requerido</strong>.</p>
+                            </div>
                         </div>
 
-                        <div class="mt-6">
+                        <div class="mt-2">
                             <div class="flex justify-between mb-2">
                                 <label for="password"
                                     class="text-sm text-gray-600 dark:text-gray-200">Contraseña</label>
                             </div>
 
-                            <input type="password" name="password" id="password" placeholder="Your Password"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" 
-                                #userPassword/>
+                            <input type="password" placeholder="Your Password"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                formControlName="password" />
+
+                            <div class="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded relative"
+                                role="alert" *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
+                                <p class="block sm:inline">La contraseña debe contar de <strong class="font-bold"> 3
+                                        Mayusculas, 3 Numeros y 2 Caracteres Especiales</strong>.</p>
+                            </div>
                         </div>
 
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <button
                                 class="w-full my-2 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                                (click)="authService.SignUp(userEmail.value, userPassword.value)" >
+                                type="submit">
                                 Registrarte
                             </button>
                         </div>
 
                     </form>
 
-                    <p class="mt-6 text-sm text-center text-gray-400 cursor-pointer">¿Aún no tienes una cuenta? <a
-                            routerLink="/auth/sinup"
-                            class="text-blue-500 focus:outline-none focus:underline hover:underline">Inscribirse</a>.
+                    <p class="mt-2 text-sm text-center text-gray-400">¿Ya tienes cuenta?<a href="/auth/login"
+                            class="text-blue-500 focus:outline-none focus:underline hover:underline">Acceder
+                            aquí</a>.
                     </p>
                 </div>
             </div>
         </div>
-
-
 
         <div class="hidden bg-cover lg:block lg:w-2/3"
             style="background-image: url(https://img.freepik.com/foto-gratis/pantalla-escaneo-programador-su-reloj-inteligente-camara-telefono-inteligente_1098-18710.jpg?w=996&t=st=1659758486~exp=1659759086~hmac=3711ccd47c60d126a184cd875f4d87cf9ec6836b390de76e91e6a0be9065d12e)">
@@ -80,7 +89,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
