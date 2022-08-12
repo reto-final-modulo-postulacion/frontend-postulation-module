@@ -26,6 +26,16 @@ export class PostulantApiService {
 		);
 	}
 
+/** GET Postuland from the server */
+getPostulantSessionOn(id: string): Observable<boolean> {
+	const url = `${this.postulandURL}/issessionon/${id}`;
+	return this.http.get<boolean>(url).pipe(
+		tap((res) => console.log(`fetched Postulant id: ${id}`, res)),
+		catchError(this.handleError<boolean>(`getPostulant id: ${id} `)),
+	);
+}
+
+	
 	/** GET Calculate Age wiht the id Postulant */
 	getCalculateAge(id: string): Observable<Postulant> {
 		const url = `${this.postulandURL}/calculateage/${id}`;
@@ -42,6 +52,14 @@ export class PostulantApiService {
 		const url = `${this.postulandURL}/${id}`;
 		return this.http.put(url, postulant, this.httpOptions).pipe(
 			tap((_) => console.log(`updated Postulant ${postulant.urlPhoto}`)),
+			catchError(this.handleError<any>("updatPostulant")),
+		);
+	}
+
+	updateStateSessionPostulant(id: string): Observable<any>{
+		const url = `${this.postulandURL}/updateissessionon/${id}`;
+		return this.http.get(url, this.httpOptions).pipe(
+			tap((_) => console.log(`updated state session Postulant`)),
 			catchError(this.handleError<any>("updatPostulant")),
 		);
 	}

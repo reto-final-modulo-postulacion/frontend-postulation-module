@@ -12,9 +12,9 @@ const routes: Routes = [
 		path: "",
 		children: [
 			{ path: "home", component: PostulationHomeComponent, canActivate: [GuardaAuthGuard] },
-			{ path: "registro-postulation", component: ResgisterFormComponent },
-			{ path: "form-reto", component: FormularioRetoComponent},
-			{ path: "detailed-challenge-information", component: DetailedChallengeInformationComponent },
+			{ path: "registro-postulation", component: ResgisterFormComponent, canActivate: [GuardaAuthGuard] },
+			{ path: "form-reto", component: FormularioRetoComponent, canActivate: [GuardaAuthGuard]},
+			{ path: "detailed-challenge-information", component: DetailedChallengeInformationComponent, canActivate: [GuardaAuthGuard] },
 		],
 	},
 	{ path: "**", redirectTo: "home" },
