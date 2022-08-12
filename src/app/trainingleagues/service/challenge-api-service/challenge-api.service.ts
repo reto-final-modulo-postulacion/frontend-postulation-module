@@ -27,11 +27,11 @@ export class ChallengeApiService {
 	}
 
 	/** GET All challenge from the server */
-	getChallengeAll(): Observable<Challenge> {
+	getChallengeAll(): Observable<Challenge[]> {
 		const url = `${this.challengeURL}`;
-		return this.http.get<Challenge>(url).pipe(
+		return this.http.get<Challenge[]>(url).pipe(
 			tap((res) => console.log(`fetched Challenge All:`, res)),
-			catchError(this.handleError<Challenge>(`getChallengeById id: ${id} `)),
+			catchError(this.handleError<Challenge[]>(` Erro in getChallengeAll `)),
 		);
 	}
 
