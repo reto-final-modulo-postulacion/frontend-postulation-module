@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "modulo-registro-sofkau"
+    "default": "postulation-module"
+  },
+  "targets": {
+    "postulation-module": {
+      "hosting": {
+        "frontend-postulacion": [
+          "postulation-module"
+        ]
+      }
+    }
   }
 }
