@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { GuardaAuthGuard } from "./guard/guarda-auth.guard";
 
 const routes: Routes = [
 	{
@@ -16,6 +17,7 @@ const routes: Routes = [
 			import("./trainingleagues/trainingleagues.module").then(
 				(m) => m.TrainingleaguesModule,
 			),
+			canActivate: [GuardaAuthGuard]
 		// canActivate: [AngularFireAuth],
 	},
 	{
