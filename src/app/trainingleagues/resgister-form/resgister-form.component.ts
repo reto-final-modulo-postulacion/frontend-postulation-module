@@ -226,11 +226,11 @@ export class ResgisterFormComponent implements OnInit {
     "linkedin": user.linkedin,
     "sessionOn": true,
     "challenge": {
-      "idChallenge": "",
-      "registrationDate": "",
-      "initialDate": "",
-      "finalDate": "",
-      "language": ""
+      "idChallenge": this.postulant.challenge.idChallenge,
+      "registrationDate": this.postulant.challenge.registrationDate,
+      "initialDate": this.postulant.challenge.initialDate,
+      "finalDate": this.postulant.challenge.finalDate,
+      "language": this.postulant.challenge.language
     },
     "idTraining": JSON.parse(localStorage.getItem("idTraining")!)
     }

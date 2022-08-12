@@ -2,7 +2,7 @@
     <h1 class="block mb-2 text-lg font-medium  dark:text-gray-300 text-center">
         Configuración del Reto Técnico
     </h1>
-    <form [formGroup]="formLenguaje" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formLenguaje">
         <div class="grid gap-6 mb-6 2">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -45,22 +45,24 @@
                 </label>
                 <input type="text" id="lastname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Doe" maxlength="50" disabled>
+                    placeholder="Doe" maxlength="50" value="{{nameChanllenge}}" disabled>
             </div>
             <div class="mb-6">
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
                     Descripción del Reto</label>
                 <textarea id="message" rows="4"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="El Reto consta de...." maxlength="500" disabled></textarea>
+                    placeholder="El Reto consta de...." maxlength="500" value="{{descriptionChallenge}}" disabled>
+                </textarea>
             </div>
         </div>
 
 
-        <button type="submit"
-            routerLink="/list/detailed-challenge-information"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Confirmar
-            Reto</button>
+        <button type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            (click)="cofirmChallenge()">
+            Confirmar Reto
+       </button>
 
     </form>
 
