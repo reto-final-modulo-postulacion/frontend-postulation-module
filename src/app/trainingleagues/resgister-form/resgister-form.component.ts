@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
 // import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
-import { Router } from "@angular/router";
 import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
