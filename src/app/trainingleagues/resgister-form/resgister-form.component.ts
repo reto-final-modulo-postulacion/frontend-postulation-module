@@ -6,7 +6,6 @@ import { ServiceApiCountriesService } from '../service/service-api-countries/ser
 import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
-import { Router } from '@angular/router';
 
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -101,7 +100,29 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
+
+
+    this.formRegisterLigue
+    .valueChanges
+    .subscribe((value:any) => {
+      console.log(value);
+
+      this.country = value.country!;
+      this.state = value.state!;
+      this.cities = value.cities!;
+      if (value.country != '') {
+        this.getAllStatesOfCountry(); 
+
+        if (value.state != '') {
+          this.getAllCitiesOfState();
+        }
+      }
+    });
   }
+
+
+// Funcion que llama 
+
 
 
   español() {
@@ -159,6 +180,7 @@ export class ResgisterFormComponent implements OnInit {
     this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
 
   	localStorage.setItem("postulant", JSON.stringify(this.postulant));
+
     this.formRegisterLigue.reset();
     this.age="0";
     this.router.navigate(["list/form-reto"]);
@@ -208,7 +230,6 @@ export class ResgisterFormComponent implements OnInit {
         this.formRegisterLigue.controls['age'].disable();
 
         this.formRegisterLigue.valueChanges.subscribe((value: any) => {
-
           if (this.country !== value.country) {
             this.country = value.country!;
             this.getAllStatesOfCountry();
