@@ -6,6 +6,7 @@ import { ServiceApiCountriesService } from '../service/service-api-countries/ser
 import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resgister-form',
@@ -66,36 +67,12 @@ export class ResgisterFormComponent implements OnInit {
   urlCV: any;
 
 
-  /*formRegisterLigue = new FormGroup({
-      name: new FormControl(''),
-      lastname: new FormControl(''),
-      documentType: new FormControl(''),
-      documentValue: new FormControl(''),
-      dateOfBirth: new FormControl(''),
-      nationality: new FormControl(''),
-      urlPhoto: new FormControl(''),
-      phoneCode: new FormControl(''),
-      phoneNumber: new FormControl(''),
-      companyName: new FormControl(''),
-      workExperience: new FormControl(''),
-      currentOccupation: new FormControl(''),
-      educationalLevel: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      cities: new FormControl(''),
-      address: new FormControl(''),
-      englishLevel: new FormControl(''),
-      isStudying: new FormControl(''),
-      aboutYou: new FormControl(''),
-      urlCV: new FormControl(''),
-      linkedin: new FormControl(''),
-  });*/
-
   constructor(
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService,
     private storage: Storage,
+    private router: Router,
   ) {
   }
 
@@ -103,12 +80,23 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
-    // this.getAllStatesOfCountry();
-    // this.getAllCitiesOfCountry();
 
     this.formRegisterLigue
     .valueChanges
-    .subscribe();
+    .subscribe((value:any) => {
+      console.log(value);
+
+      this.country = value.country!;
+      this.state = value.state!;
+      this.cities = value.cities!;
+      if (value.country != '') {
+        this.getAllStatesOfCountry(); 
+
+        if (value.state != '') {
+          this.getAllCitiesOfState();
+        }
+      }
+    });
   }
 
 
@@ -160,8 +148,10 @@ export class ResgisterFormComponent implements OnInit {
     "idTraining": ""
     }
 
-    this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
-    // console.log('Your order has been submitted', this.postulant);
+    this.postulantApiService
+    .updatePostulant(userId, this.postulant)
+    .subscribe();
+    this.router.navigate(['/list/form-reto']);
     this.formRegisterLigue.reset();
     this.age="0";
   }
@@ -206,9 +196,6 @@ export class ResgisterFormComponent implements OnInit {
 
 
         this.formRegisterLigue.valueChanges.subscribe((value: any) => {
-          // console.log(value);
-
-          // this.cities = value.cities!;
           if (this.country !== value.country) {
             this.country = value.country!;
             this.getAllStatesOfCountry();
@@ -271,7 +258,6 @@ export class ResgisterFormComponent implements OnInit {
     .catch(error => console.log(error))
 
     getDownloadURL(imgRef).then((url)=> {
-      console.log(url)
       this.photoURL= url;
     }
     ).catch((error) => console.log(error))
