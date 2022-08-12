@@ -8,6 +8,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { User } from "../interfaces/Interface.User";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { PostulantApiService } from "src/app/trainingleagues/service/postulant-api/postulant-api.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -19,6 +20,7 @@ export class AuthService {
 		public afs: AngularFirestore,
 		public afAuth: AngularFireAuth,
 		public router: Router,
+		private postulant: PostulantApiService
 	) {
 		this.afAuth.authState.subscribe((user) => {
 			if (user) {
@@ -37,8 +39,21 @@ export class AuthService {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
-				this.SetUserData(result.user, displayName);
-				this.router.navigate(["list/home"]);
+				this.postulant.getPostulantSessionOn(result.user?.uid!).subscribe(session => {
+					if(session !== true){
+						this.SetUserData(result.user, displayName);
+						this.postulant.updateStateSessionPostulant(result.user?.uid!).subscribe();
+						this.router.navigate(["list/home"]);
+					} else {
+						Swal.fire({
+							title: "Usuario Ya tiene una Sesión activa",
+							icon: "warning",
+							text: "El usuario ya se encuentra registrado con anterioridad",
+							confirmButtonText: "Aceptar",
+						});
+
+					}
+				})
 			})
 			.catch(() => {
 				Swal.fire({
@@ -126,9 +141,16 @@ export class AuthService {
 	// Salir Sesion
 	async SignOut() {
 		return await this.afAuth.signOut().then(() => {
+			let { uid } = JSON.parse(localStorage.getItem("user")!);
 			localStorage.removeItem("user");
 			localStorage.removeItem("token");
 			this.router.navigate(["auth/login"]);
+			this.postulant.getPostulantSessionOn(uid).subscribe(session => {
+				if(session === true){
+					this.postulant.updateStateSessionPostulant(uid).subscribe();
+					this.router.navigate(["auth/login"]);
+				}
+			})
 		});
 	}
 
@@ -136,10 +158,26 @@ export class AuthService {
 	async GoogleAuth() {
 		return await this.AuthLogin(new auth.GoogleAuthProvider()).then(() => {
 			this.afAuth.onAuthStateChanged((user) => {
-				if (user) {
-					localStorage.setItem("user", JSON.stringify(this.userData));
-					this.router.navigate(["list/home"]);
-				}
+				this.postulant.getPostulantSessionOn(user?.uid!).subscribe(session => {
+					console.log("AQUI ESTOY " + session);
+					if(session !== true){
+						if (user) {
+							console.log("DENTRO DEL USER");
+							this.postulant.updateStateSessionPostulant(user?.uid!).subscribe();
+							localStorage.setItem("user", JSON.stringify(this.userData));
+							this.router.navigate(["list/home"]);
+						}
+					} else {
+						Swal.fire({
+							title: "Usuario Ya tiene una Sesión activa",
+							icon: "warning",
+							text: "El usuario ya se encuentra registrado con anterioridad",
+							confirmButtonText: "Aceptar",
+						});
+
+					}
+				})
+
 			});
 		});
 	}
