@@ -1,17 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostulantApiService } from '../service/postulant-api/postulant-api.service';
-import { Countrie } from '../interfaces/countries';
+// import { Countrie } from '../interfaces/countries';
 import { ServiceApiCountriesService } from '../service/service-api-countries/service-api-countries.service';
+import { Router } from "@angular/router";
 import { Postulant } from '../interfaces/postulant';
 
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
-import { Router } from '@angular/router';
+
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import 'moment/locale/ja';
+import 'moment/locale/fr';
+import 'moment/locale/es';
 
 @Component({
   selector: 'app-resgister-form',
   templateUrl: './resgister-form.component.html',
-  styleUrls: ['./resgister-form.component.css']
+  styleUrls: ['./resgister-form.component.css'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
 })
 export class ResgisterFormComponent implements OnInit {
   postulant: Postulant = {
@@ -61,7 +80,7 @@ export class ResgisterFormComponent implements OnInit {
   country: string = "";
   state: string = "";
   cities: string = "";
-  age: string = "23";
+  age: any;
   formRegisterLigue: any;
   photoURL: any;
   urlCV: any;
@@ -71,8 +90,10 @@ export class ResgisterFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private postulantApiService: PostulantApiService,
     private countriesApiService: ServiceApiCountriesService,
-    private storage: Storage,
     private router: Router,
+    private storage: Storage,
+    private _dateAdapter: DateAdapter<any>,
+    @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
   }
 
@@ -80,6 +101,7 @@ export class ResgisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPaises();
     this.getPostulantById();
+
 
     this.formRegisterLigue
     .valueChanges
@@ -101,6 +123,14 @@ export class ResgisterFormComponent implements OnInit {
 
 
 // Funcion que llama 
+
+
+  español() {
+    this._locale = 'ja';
+    this._dateAdapter.setLocale(this._locale);
+  }
+
+
   onSubmit(customerData: any) {
     let userId = JSON.parse(localStorage.getItem("user") || "").uid!;
     let email = JSON.parse(localStorage.getItem("user") || "").email;
@@ -139,21 +169,22 @@ export class ResgisterFormComponent implements OnInit {
     "linkedin": user.linkedin,
     "sessionOn": true,
     "challenge": {
-      "idChallenge": "",
-      "registrationDate": "",
-      "initialDate": "",
-      "finalDate": "",
-      "language": ""
+      "idChallenge": this.postulant.challenge.idChallenge,
+      "registrationDate": this.postulant.challenge.registrationDate,
+      "initialDate": this.postulant.challenge.initialDate,
+      "finalDate": this.postulant.challenge.finalDate,
+      "language": this.postulant.challenge.language
     },
-    "idTraining": ""
+    "idTraining": JSON.parse(localStorage.getItem("idTraining")!)
     }
 
-    this.postulantApiService
-    .updatePostulant(userId, this.postulant)
-    .subscribe();
-    this.router.navigate(['/list/form-reto']);
+    this.postulantApiService.updatePostulant(userId, this.postulant).subscribe();
+
+  	localStorage.setItem("postulant", JSON.stringify(this.postulant));
+
     this.formRegisterLigue.reset();
     this.age="0";
+    this.router.navigate(["list/form-reto"]);
   }
 
 
@@ -164,6 +195,7 @@ export class ResgisterFormComponent implements OnInit {
       .subscribe((user) => {
         this.postulant = (user) ? user : this.postulant;
         this.startFormReactive();
+        this.calculateAge(this.postulant.dateOfBirth);
       });
   }
 
@@ -194,6 +226,9 @@ export class ResgisterFormComponent implements OnInit {
           linkedin: this.postulant.linkedin || "",
         });
 
+        this.urlCV = this.postulant.urlCV;
+        this.photoURL = this.postulant.urlPhoto;
+        this.formRegisterLigue.controls['age'].disable();
 
         this.formRegisterLigue.valueChanges.subscribe((value: any) => {
           if (this.country !== value.country) {
@@ -206,6 +241,12 @@ export class ResgisterFormComponent implements OnInit {
               this.getAllCitiesOfState();
           }
 
+          if(this.postulant.dateOfBirth != value.dateOfBirth){
+            const month = (value.dateOfBirth._i.month < 10)? `0${value.dateOfBirth._i.month+1}`: `${value.dateOfBirth._i.month+1}`;
+            const day = (value.dateOfBirth._i.date < 10)? `0${value.dateOfBirth._i.date}`: `${value.dateOfBirth._i.date}`;
+            const date =  `${value.dateOfBirth._i.year}-${month}-${day}`;
+            this.calculateAge(date);
+          }
         });
   }
 
@@ -245,6 +286,14 @@ export class ResgisterFormComponent implements OnInit {
             name: auxCities.city_name
           }
         });
+      });
+  }
+
+  calculateAge(agePostulant: any){
+    console.log("set date", agePostulant);
+    this.postulantApiService.getCalculateAge(agePostulant)
+      .subscribe((userAge) => {
+        this.age = userAge;
       });
   }
 

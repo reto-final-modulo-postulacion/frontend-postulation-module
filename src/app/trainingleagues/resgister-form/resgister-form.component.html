@@ -2,7 +2,7 @@
     <h1 class="block mb-2 text-lg font-medium  dark:text-gray-300 text-center">
         Liga de Entrenamiento ??
     </h1>
-    <form [formGroup]="formRegisterLigue" (ngSubmit)="onSubmit(formRegisterLigue.value)">
+    <form  *ngIf="formRegisterLigue" [formGroup]="formRegisterLigue" (ngSubmit)="onSubmit(formRegisterLigue.value)">
         <div class="grid gap-6 mb-6 lg:grid-cols-2">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -18,7 +18,7 @@
                 </label>
 
                 <input type="text" id="lastname"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 bordAlvarezer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Doe" maxlength="50" formControlName="lastname"
                     required>
 
@@ -59,7 +59,7 @@
                     <input name="" type="text" matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                             focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
-                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento" formControlName="dateOfBirth">
+                           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Seleccione su fecha de nacimiento" formControlName="dateOfBirth">
                     <mat-datepicker-toggle matSuffix [for]="picker"
                         class="flex absolute inset-y-0 left-0 items-center pl-3 text-gray-50 z-50 ">
                     </mat-datepicker-toggle>
@@ -70,11 +70,9 @@
                 <label for="yearOld" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Edad
                 </label>
-                <p type="text" id="yearOld" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
-                    focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
-                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " formControlName="age">
-                    {{age}}
-                <p>
+                <input type="text" id="yearOld" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600
+                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" [value]="age" formControlName="age">
             </div>
 
 
@@ -121,22 +119,22 @@
         </div>
 
 
-        <div class="grid gap-6 mb-6 lg:grid-cols-2">
+        <div class="grid gap-6 mb-6 lg:grid-cols-1">
             <div>
                 <label for="enterPriceName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Nombre Empresa
                 </label>
                 <input type="text" id="enterPriceName"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Sofka Technologies" required formControlName="enterPriceName" maxlength="50" formControlName="companyName">
+                    placeholder="Sofka Technologies, golden travel, ceiba software, etc." required formControlName="enterPriceName" maxlength="50" formControlName="companyName">
             </div>
 
             <div>
                 <label for="occupation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Ultimo Cargo</label>
+                    Cargos</label>
                 <input type="text" id="occupation"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Programador" required formControlName="occupation" maxlength="50"
+                    placeholder="Programador, Analista de datos, Automatizador de pruebas, Scrum Master, ETC." required formControlName="occupation" maxlength="50"
                     formControlName="workExperience">
             </div>
         </div>
@@ -147,7 +145,7 @@
             </label>
             <input type="text" id="currentOccupation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Actualmente ocupo el cargo de Administracion" maxlength="50"
+                placeholder="Actualmente ocupo el cargo de Administrador de bases de datos" maxlength="50"
                 required  formControlName="currentOccupation">
         </div>
 
@@ -279,11 +277,13 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="" maxlength="500" formControlName="linkedin" required>
         </div>
-        <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inscribirse</button>
+
+        <button type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  (click)="onSubmit(formRegisterLigue.value)">Inscribirse</button>
+
     </form>
 
     <button type="button"
         class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 my-3 mx-3 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
-        routerLink="/list/home">Atras</button>
+        routerLink="[/list/home]" >Atras</button>
 </div>
