@@ -4,12 +4,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { Challenge } from '../../interfaces/challenge';
+import { PathRest} from '../../../static/hostBackend';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChallengeApiService {
-  private challengeURL = "api/challenge";
+  private challengeURL = PathRest.getApiChallenge;
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

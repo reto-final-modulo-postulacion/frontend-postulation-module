@@ -4,12 +4,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { TrainingLeague } from "../../interfaces/trainingLeague";
+import { PathRest} from '../../../static/hostBackend';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrainingLeagueApiService {
-  private	trainingLeagueURL = "api/trainingleague"
+  private	trainingLeagueURL = PathRest.getApiTraining;
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

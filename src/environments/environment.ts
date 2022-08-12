@@ -4,6 +4,7 @@
 
 export const environment = {
 	production: false,
+	HostBackent: 'https://postulation-backend-beta.herokuapp.com/api/',
 	firebase: {
 		apiKey: "AIzaSyAmoywR7vKW0JZD1U63CdUc3Baz3_1BWIM",
 		authDomain: "postulation-module.firebaseapp.com",

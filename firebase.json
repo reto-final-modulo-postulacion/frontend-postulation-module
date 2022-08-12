@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "public": "dist/frontend-postulacion",
+      "public": "./dist/frontend-postulacion",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -16,7 +16,7 @@
     },
     {
       "target": "frontend-postulacion",
-      "public": "dist/frontend-postulacion",
+      "public": "./dist/frontend-postulacion",
       "ignore": [
         "**/.*"
       ],

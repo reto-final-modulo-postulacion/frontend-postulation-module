@@ -5,11 +5,13 @@ import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { Postulant } from "../../interfaces/postulant";
 
+import { PathRest} from '../../../static/hostBackend';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PostulantApiService {
-  private postulandURL = "api/postulant";
+  private postulandURL = PathRest.getApiPostulant;
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -35,7 +37,7 @@ getPostulantSessionOn(id: string): Observable<boolean> {
 	);
 }
 
-	
+
 	/** GET Calculate Age wiht the id Postulant */
 	getCalculateAge(id: string): Observable<Postulant> {
 		const url = `${this.postulandURL}/calculateage/${id}`;
